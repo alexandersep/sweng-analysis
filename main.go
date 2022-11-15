@@ -43,7 +43,7 @@ type metrics struct {
 	Owner          string         `json:"owner"`
 	Repo           string         `json:"repo"`
 	Languages      map[string]int `json:"languages"`
-	Commit_Average int            `json:"average_commits_this_year"`
+	Commit_Average float64        `json:"average_commits_this_year"`
 }
 
 var user_metrics = metrics{}
@@ -53,7 +53,7 @@ func getMetrics(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, user_metrics)
 }
 
-func populate_metrics(owner, repo string, languages map[string]int, commit_avg int) {
+func populate_metrics(owner, repo string, languages map[string]int, commit_avg float64) {
 	user_metrics = metrics{
 		Owner: owner, Repo: repo, Languages: languages, Commit_Average: commit_avg,
 	}
@@ -88,7 +88,7 @@ func isBlocking(err error) bool {
 }
 
 func main() {
-	var owner = "torvalds"
+	owner := "torvalds"
 	input_repo := "linux"
 
 	// ==AUTHORISATION==
@@ -159,12 +159,12 @@ func main() {
 		}
 	}
 
-	var commit_avg int = 0
+	var commit_avg float64 = 0.0
 	for _, week := range commit_activity {
-		commit_avg += *week.Total
+		commit_avg += float64(*week.Total)
 	}
 
-	commit_avg /= len(commit_activity)
+	commit_avg /= float64(len(commit_activity))
 	println("Languages: ", fmt.Sprint(languages), "\n",
 		"Average weekly commits over past year: ", commit_avg)
 	populate_metrics(owner, input_repo, languages, commit_avg)
