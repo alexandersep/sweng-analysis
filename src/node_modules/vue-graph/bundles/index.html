@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="charset=utf-8;"/>
+</head>
+<body>
+
+<div id="app">
+    <graph-area
+            :width="600"
+            :height="400"
+            :labels="[ '1Q', '2Q', '3Q', '4Q' ]"
+            :axis-x-style="'none'"
+            :display="'max'"
+            :values="values"
+            :axis-full-mode="true"
+    >
+        <note :text="'Area Chart'"></note>
+        <tooltip :names="names" :position="'left'"></tooltip>
+        <legends :names="names" :filter="true"></legends>
+    </graph-area>
+</div>
+
+</body>
+</html>
