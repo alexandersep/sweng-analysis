@@ -25,13 +25,43 @@ package main
 
 import (
 	"context"
+
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
 
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 	"github.com/google/go-github/v48/github"
 )
+
+type metrics struct {
+	Owner          string         `json:"owner"`
+	Repo           string         `json:"repo"`
+	Languages      map[string]int `json:"languages"`
+	Commit_Average int            `json:"average_commits_this_year"`
+}
+
+var user_metrics = metrics{}
+
+func getMetrics(context *gin.Context) {
+	context.Header("Access-Control-Allow-Origin", "http://localhost:8080")
+	context.IndentedJSON(http.StatusOK, user_metrics)
+}
+
+func populate_metrics(owner, repo string, languages map[string]int, commit_avg int) {
+	user_metrics = metrics{
+		Owner: owner, Repo: repo, Languages: languages, Commit_Average: commit_avg,
+	}
+}
+
+func init_server() {
+	router := gin.Default()
+	router.Use(cors.Default())
+	router.GET("/metrics", getMetrics)
+	router.Run("localhost:9090")
+}
 
 func getApiData(url string) ([]byte, error) {
 	response, err := http.Get(url)
@@ -55,52 +85,45 @@ func isBlocking(err error) bool {
 }
 
 func main() {
-	var owner = ""
-	print("Please enter a github username you would like to query, or type \"quit\" to quit: ")
-	fmt.Scan(&owner)
+	var owner = "torvalds"
+  input_repo := "linux"
 
-	for owner != "quit" {
+	ctx := context.Background()
+	client := github.NewClient(nil)
 
-		ctx := context.Background()
-		client := github.NewClient(nil)
 
-		input_repo := ""
-		print("Please enter a repo associated with that github username: ")
-		fmt.Scan(&input_repo)
+	var commit_activity []*github.WeeklyCommitActivity
+	var err error = &github.AcceptedError{}
+	var languages map[string]int
+	blocking := true
 
-		var commit_activity []*github.WeeklyCommitActivity
-		var err error = &github.AcceptedError{}
-		var languages map[string]int
-		blocking := true
+	for blocking {
 
-		for blocking {
-
-			commit_activity, _, err = client.Repositories.ListCommitActivity(ctx, owner, input_repo)
-			if err != nil && !isBlocking(err) {
-				println("Error: ", err.Error())
-			}
-			blocking = isBlocking(err)
-
-			languages, _, err = client.Repositories.ListLanguages(ctx, owner, input_repo)
-			if err != nil && !isBlocking(err) {
-				println("Error: ", err.Error())
-			}
-
-			blocking = isBlocking(err) || blocking
-			if blocking {
-				time.Sleep(1 * time.Second)
-			}
+		commit_activity, _, err = client.Repositories.ListCommitActivity(ctx, owner, input_repo)
+		if err != nil && !isBlocking(err) {
+			println("Error: ", err.Error())
 		}
+		blocking = isBlocking(err)
 
-		var commit_avg int = 0
-		for _, week := range commit_activity {
-			commit_avg += *week.Total
+		languages, _, err = client.Repositories.ListLanguages(ctx, owner, input_repo)
+		if err != nil && !isBlocking(err) {
+			println("Error: ", err.Error())
 		}
-
-		commit_avg /= len(commit_activity)
-		println("Languages: ", fmt.Sprint(languages), "\n",
-			"Average weekly commits over past year: ", commit_avg)
-		print("Please enter a github username you would like to query, or type \"quit\" to quit: ")
-		fmt.Scan(&owner)
+    
+		blocking = isBlocking(err) || blocking
+		if blocking {
+			time.Sleep(1 * time.Second)
+		}
 	}
+
+	var commit_avg int = 0
+	for _, week := range commit_activity {
+		commit_avg += *week.Total
+	}
+
+	commit_avg /= len(commit_activity)
+	println("Languages: ", fmt.Sprint(languages), "\n",
+		"Average weekly commits over past year: ", commit_avg)
+	populate_metrics(owner, input_repo, languages, commit_avg)
+	init_server()
 }
