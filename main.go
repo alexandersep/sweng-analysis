@@ -25,6 +25,7 @@ package main
 
 import (
 	"context"
+	"syscall"
 
 	"fmt"
 	"io/ioutil"
@@ -34,6 +35,8 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/google/go-github/v48/github"
+	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/oauth2"
 )
 
 type metrics struct {
@@ -86,11 +89,51 @@ func isBlocking(err error) bool {
 
 func main() {
 	var owner = "torvalds"
-  input_repo := "linux"
+	input_repo := "linux"
 
+	// ==AUTHORISATION==
+	// If the var 'token' is still an empty string (I.E. not hard-coded to a value),
+	// we ask the terminal for a valid token. Either way, once we have a valid token,
+	// we set up 'client' to be a *github.client that's token authorised.
+
+	// If you don't want to manually type your token in every time, paste yours here.
+	var token string = ""
+
+	// Variables we want to use outside of the loop.
 	ctx := context.Background()
-	client := github.NewClient(nil)
+	var client *github.Client
 
+	// The only way to break out of the loop is with a valid token.
+	for {
+
+		// If we haven't hard-coded 'token', get the token string from the user.
+		if token == "" {
+			print("Please paste in your github token (https://github.com/settings/tokens):\n >")
+			token_bytes, _ := terminal.ReadPassword(int(syscall.Stdin))
+			println()
+			token = string(token_bytes)
+		}
+
+		// Authorise the token
+		token_source := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
+		token_client := oauth2.NewClient(ctx, token_source)
+		client = github.NewClient(token_client)
+
+		// If the token is invalid, or if any errors occur, run the loop again.
+		_, _, err := client.Users.Get(ctx, "")
+		if err != nil {
+			if err.Error() == "GET https://api.github.com/user: 401 Bad credentials []" {
+				println("\n401: Bad credentials. Please try again.")
+			}
+			token = ""
+			continue
+		}
+
+		// Otherwise, continue on with the program. The var client is now authorised, and
+		// should have more api calls, and an increased rate of 5,000 requests p/hour.
+		break
+	}
+	// ==END AUTHORISATION==
 
 	var commit_activity []*github.WeeklyCommitActivity
 	var err error = &github.AcceptedError{}
@@ -109,7 +152,7 @@ func main() {
 		if err != nil && !isBlocking(err) {
 			println("Error: ", err.Error())
 		}
-    
+
 		blocking = isBlocking(err) || blocking
 		if blocking {
 			time.Sleep(1 * time.Second)
