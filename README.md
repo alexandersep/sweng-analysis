@@ -1,20 +1,12 @@
-# vue-project
+# sweng-analysis
 
-This template should help get you started developing with Vue 3 in Vite.
+## About the repository 
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
+* Created for third year module in Computer Science Trinity College, CSU33012 Software Engineering.
+* This repository is designed to gather information about this github repository and calculate 
+  interesting statistics for determining the productivity of a software engineer and team.
+* This project was written using **GO** and **Vue**.
+* API calls were done using **go-github**.
 
 ### Compile and Hot-Reload for Development
 
@@ -33,3 +25,14 @@ npm run build
 ```sh
 npm run test:unit
 ```
+
+### Contributors
+
+Adam Beaty, *TODO*  
+Adriana Hrabowych, *TODO*  
+Brandon Paisley, *TODO*  
+Gerald Paris, *TODO*   
+Daniel Penrose, *TODO*   
+Niall Sauvage, sauvagen@tcd.ie   
+Alexander Sepelenco, sepelena@tcd.ie   
+Wesley Shaw, Weshaw@tcd.ie
