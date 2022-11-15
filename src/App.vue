@@ -22,7 +22,7 @@ export default {
       axios.get(path)
       .then((res) => {
         this.owner = res.data.owner;
-        this.repo = res.data;
+        this.repo = res.data.repo;
         this.languages = res.data.languages;
         this.avg_commits = res.data.average_commits_this_year;
         console.log(this.owner, this.repo, this.languages, this.avg_commits);
@@ -48,14 +48,6 @@ export default {
     <div v-if="isVisible" class="box" style="background: red"></div>
     <div v-if="isVisible" class="box2" style="background: blue"></div>
     <div v-if="isVisible" class="box3" style="background: green"></div>
-    <div v-if="isVisible" style="background: white">
-      <ul>
-        {{this.owner}}
-        {{this.repo}}
-        {{this.languages}}
-        {{this.avg_commits}}
-      </ul>
-    </div>
   </header>
 
   <main>
