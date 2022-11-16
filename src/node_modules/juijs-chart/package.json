@@ -1,0 +1,83 @@
+{
+  "name": "juijs-chart",
+  "version": "2.6.12",
+  "sideEffects": false,
+  "description": "SVG-based JUI chart that can be used in the browser and Node.js. Support many types of charts. (Dashboard, Map, Topology, Full 3D)",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "webpack-dev-server --env dev",
+    "dist": "webpack --env prod"
+  },
+  "main": "src/main.js",
+  "files": [
+    "bundles",
+    "dist",
+    "examples",
+    "images",
+    "src",
+    "test",
+    "package.json",
+    "README.md",
+    "webpack.config.js",
+    "webpack.dev.js",
+    "webpack.prod.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juijs/jui-chart.git"
+  },
+  "keywords": [
+    "HTML5",
+    "NodeJS",
+    "CSS",
+    "JS",
+    "JavaScript",
+    "SVG",
+    "Chart",
+    "Framework",
+    "Web development",
+    "free",
+    "MIT"
+  ],
+  "author": "seogi1004",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juijs/jui-chart/issues"
+  },
+  "categories": [
+    "Frameworks",
+    "UI"
+  ],
+  "maintainers": [
+    {
+      "name": "Alvin",
+      "email": "alvin@jennifersoft.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Jayden",
+      "email": "jayden@jennifersoft.com"
+    },
+    {
+      "name": "Yoha",
+      "email": "yoha@jennifersoft.com"
+    }
+  ],
+  "dependencies": {
+    "juijs-graph": "1.1.4"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "compression-webpack-plugin": "^1.1.12",
+    "html-webpack-plugin": "^3.2.0",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}
