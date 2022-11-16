@@ -25,6 +25,7 @@ package main
 
 import (
 	"context"
+	"os"
 	"syscall"
 
 	"fmt"
@@ -96,9 +97,8 @@ func main() {
 	// we ask the terminal for a valid token. Either way, once we have a valid token,
 	// we set up 'client' to be a *github.client that's token authorised.
 
-	// If you don't want to manually type your token in every time, paste yours here.
-	var token string = ""
-
+	// Loads token from environment variables - if not set, can be taken from user as input.
+	var token string = os.Getenv("GITTOKEN")
 	// Variables we want to use outside of the loop.
 	ctx := context.Background()
 	var client *github.Client
