@@ -139,7 +139,6 @@ func main() {
 	var err error = &github.AcceptedError{}
 	var languages map[string]int
 	blocking := true
-
 	for blocking {
 
 		commit_activity, _, err = client.Repositories.ListCommitActivity(ctx, owner, input_repo)
@@ -154,11 +153,18 @@ func main() {
 		}
 
 		blocking = isBlocking(err) || blocking
+
+		repo, _, err := client.Repositories.Get(ctx, owner, input_repo)
+		if err != nil && !isBlocking(err) {
+			println("Error: ", err.Error())
+		}
+
+		blocking = isBlocking(err) || blocking
+		print(repo.CreatedAt.String())
 		if blocking {
 			time.Sleep(1 * time.Second)
 		}
 	}
-
 	var commit_avg float64 = 0.0
 	for _, week := range commit_activity {
 		commit_avg += float64(*week.Total)
