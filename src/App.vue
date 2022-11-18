@@ -44,8 +44,8 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -400px;" @click="isVisible = !isVisible">Histogram Example? {{ isVisible }}</button>
-    <div v-if="isVisible" class="box" style="background: red"></div>
+    <button class="button" style="left: -400px;" @click="isVisible = !isVisible">Languages Used {{ isVisible }}</button>
+    <div v-if="isVisible" class="box" style="background: pink"></div>
     <div v-if="isVisible" class="box2" style="background: blue"></div>
     <div v-if="isVisible" class="box3" style="background: green"></div>
   </header>
