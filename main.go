@@ -40,6 +40,9 @@ import (
 	"golang.org/x/oauth2"
 )
 
+const SECONDS_IN_WEEK int = 604800
+const WEEKS_IN_YEAR int = 52
+
 type metrics struct {
 	Owner          string         `json:"owner"`
 	Repo           string         `json:"repo"`
@@ -139,6 +142,7 @@ func main() {
 	var err error = &github.AcceptedError{}
 	var languages map[string]int
 	blocking := true
+	var repo *github.Repository
 	for blocking {
 
 		commit_activity, _, err = client.Repositories.ListCommitActivity(ctx, owner, input_repo)
@@ -154,7 +158,7 @@ func main() {
 
 		blocking = isBlocking(err) || blocking
 
-		repo, _, err := client.Repositories.Get(ctx, owner, input_repo)
+		repo, _, err = client.Repositories.Get(ctx, owner, input_repo)
 		if err != nil && !isBlocking(err) {
 			println("Error: ", err.Error())
 		}
@@ -165,12 +169,16 @@ func main() {
 			time.Sleep(1 * time.Second)
 		}
 	}
+	repo_weeks := time.Since(repo.CreatedAt.Time).Seconds() / float64(SECONDS_IN_WEEK)
+	if int(repo_weeks) > WEEKS_IN_YEAR {
+		repo_weeks = float64(WEEKS_IN_YEAR)
+	}
 	var commit_avg float64 = 0.0
 	for _, week := range commit_activity {
 		commit_avg += float64(*week.Total)
 	}
 
-	commit_avg /= float64(len(commit_activity))
+	commit_avg /= repo_weeks
 	println("Languages: ", fmt.Sprint(languages), "\n",
 		"Average weekly commits over past year: ", commit_avg)
 	populate_metrics(owner, input_repo, languages, commit_avg)
