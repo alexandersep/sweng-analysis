@@ -50,7 +50,7 @@ import CodeIcon from './icons/IconCode.vue'
     <a href="TODO" target="_blank" rel="noopener">TODO@tcd.ie</a>
     <h3>Graphing</h3>
     Adam:
-    <a href="TODO" target="_blank" rel="noopener">TODO@tcd.ie</a>,
+    <a href="beattyad@tcd.ie" target="_blank" rel="noopener">beattyad@tcd.ie</a>,
     Gerald:
     <a href="TODO" target="_blank" rel="noopener">TODO@tcd.ie</a>
     <h3>Full-Stack</h3>

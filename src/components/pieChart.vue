@@ -1,23 +1,30 @@
+<script setup>
+import Chart from 'chart.js/auto';
+import AppVue from '../App.vue';
+</script>
 <template>
     <div class="hello">
       <canvas id="myChart" width="400" height="100"></canvas>
     </div>
   
   </template>
-  <script>
-  import Chart from 'chart.js/auto';
-  //import { apiData } from './api'
-  // ...
-  export default {
-   /* name: 'HelloWorld',
-    props: {
-      msg: String
-    },*/
-    
+  <script>  
+  export default{
     mounted(){
   console.log("component mounted")
   const ctx = document.getElementById('myChart')
   const data={
+    languages:[],
+    method:{
+        get_languages : function(){
+        var path = 'http://localhost:9090/metrics'
+      axios.get(path)
+      .then((res) => {
+        this.languages = res.data.languages;
+        console.log(this.languages);
+      })
+        }
+    },
       labels:[ //here- where we should import the languages section of the data(from get metrics method?)
           'Assembly',
           'C',
@@ -61,8 +68,8 @@
       }
   );
   myChart;
-      }
-    }
+     }
+   }
   </script>
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
