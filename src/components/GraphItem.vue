@@ -32,7 +32,7 @@ h3 {
 }
 
 h1 {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 300;
   margin-bottom: 0.4rem;
   color: var(--color-heading);

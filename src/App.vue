@@ -1,6 +1,5 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-import pieChart from './components/pieChart.vue';
 import TheWelcome from './components/TheWelcome.vue'
 import GraphPage from './components/GraphPage.vue'
 </script>
@@ -86,7 +85,7 @@ export default {
 <template>
   <header>
     <div>
-      <custom-header v-bind:onGraphs="false" page-title="Home"></custom-header>
+      <custom-header v-bind:onGraphs="false"></custom-header>
     </div>
     <img alt="Vue logo" class="logo" src="./assets/sweng-logo.svg" width="200" height="200" />
     <div class="wrapper">
@@ -119,11 +118,11 @@ header {
   }
 
   header .wrapper {
-    margin: 0 0 0 0;
+    margin: 0 0 -75px 0;
   }
 
   header .button {
-    margin: -500px 0 0 0;
+    margin: 0 0 0 0;
   }
 
 @media (max-width: 1023px) {

@@ -12,7 +12,6 @@
   background-color: var(--color-background-soft);
   border: none;
   border-radius: 15px;
-  margin-top: 100px;
   color: var(--color-blue); 
   font-size: large;
   text-align: center;
@@ -38,7 +37,7 @@ a,
 
 @media (min-width: 1024px) {
   body {
-    display: flex;
+    top: 50px;
     place-items: center;
   }
 
