@@ -40,6 +40,9 @@ import (
 	"golang.org/x/oauth2"
 )
 
+const SECONDS_IN_WEEK int = 604800
+const WEEKS_IN_YEAR int = 52
+
 type metrics struct {
 	Owner          string         `json:"owner"`
 	Repo           string         `json:"repo"`
@@ -86,6 +89,51 @@ func isBlocking(err error) bool {
 		return false
 	}
 	return true
+}
+
+func weekly_commits(created_at time.Time, commit_activity []*github.WeeklyCommitActivity) (float64, error) {
+	if commit_activity == nil {
+		return 0, fmt.Errorf("commit activity was nil")
+	}
+	repo_weeks := time.Since(created_at).Seconds() / float64(SECONDS_IN_WEEK)
+	if int(repo_weeks) > WEEKS_IN_YEAR {
+		repo_weeks = float64(WEEKS_IN_YEAR)
+	}
+	var commit_avg float64 = 0.0
+	for _, week := range commit_activity {
+		commit_avg += float64(*week.Total)
+	}
+
+	commit_avg /= repo_weeks
+	return commit_avg, nil
+}
+
+func commits_ratio(commits []*github.RepositoryCommit) (map[string]float64, error) {
+	var commit_map map[string]int = make(map[string]int)
+	if commits == nil {
+		return nil, fmt.Errorf("commit activity was nil")
+	}
+	for _, commit := range commits {
+		if commit.Author != nil {
+			_, exists := commit_map[*commit.Author.Login]
+			if exists {
+				commit_map[*commit.Author.Login]++
+			} else {
+				commit_map[*commit.Author.Login] = 1
+			}
+		}
+	}
+	var ratio_map map[string]float64 = make(map[string]float64)
+	var max_commits int = 0
+	for _, commits := range commit_map {
+		if commits > max_commits {
+			max_commits = commits
+		}
+	}
+	for committer, commits := range commit_map {
+		ratio_map[committer] = float64(commits) / float64(max_commits)
+	}
+	return ratio_map, nil
 }
 
 func main() {
@@ -139,7 +187,8 @@ func main() {
 	var err error = &github.AcceptedError{}
 	var languages map[string]int
 	blocking := true
-
+	var repo *github.Repository
+	var commits []*github.RepositoryCommit
 	for blocking {
 
 		commit_activity, _, err = client.Repositories.ListCommitActivity(ctx, owner, input_repo)
@@ -154,19 +203,35 @@ func main() {
 		}
 
 		blocking = isBlocking(err) || blocking
+
+		repo, _, err = client.Repositories.Get(ctx, owner, input_repo)
+		if err != nil && !isBlocking(err) {
+			println("Error: ", err.Error())
+		}
+
+		blocking = isBlocking(err) || blocking
+
+		commits, _, err = client.Repositories.ListCommits(ctx, owner, input_repo, nil)
+
+		if err != nil && !isBlocking(err) {
+			println("Error: ", err.Error())
+		}
+		blocking = isBlocking(err) || blocking
 		if blocking {
 			time.Sleep(1 * time.Second)
 		}
 	}
-
-	var commit_avg float64 = 0.0
-	for _, week := range commit_activity {
-		commit_avg += float64(*week.Total)
+	commit_avg, err := weekly_commits(repo.CreatedAt.Time, commit_activity)
+	if err != nil {
+		fmt.Printf("ERROR: %v", err)
 	}
-
-	commit_avg /= float64(len(commit_activity))
+	ratio, err := commits_ratio(commits)
+	if err != nil {
+		fmt.Printf("ERROR: %v", err)
+	}
 	println("Languages: ", fmt.Sprint(languages), "\n",
-		"Average weekly commits over past year: ", commit_avg)
+		"Average weekly commits over past year: ", commit_avg, "\n",
+		"Ratio of commits to max committer: ", fmt.Sprint(ratio))
 	populate_metrics(owner, input_repo, languages, commit_avg)
 	init_server()
 }

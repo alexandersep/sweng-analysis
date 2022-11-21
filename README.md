@@ -31,8 +31,8 @@ npm run test:unit
 Adam Beaty, *TODO*  
 Adriana Hrabowych, *TODO*  
 Brandon Paisley, *TODO*  
-Gerald Paris, *TODO*   
-Daniel Penrose, *TODO*   
-Niall Sauvage, sauvagen@tcd.ie   
-Alexander Sepelenco, sepelena@tcd.ie   
+Gerald Paris, *TODO*     
+Daniel Penrose, penrosed@tcd.ie
+Niall Sauvage, sauvagen@tcd.ie    
+Alexander Sepelenco, sepelena@tcd.ie    
 Wesley Shaw, Weshaw@tcd.ie
