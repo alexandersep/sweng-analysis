@@ -42,6 +42,7 @@ import (
 
 const SECONDS_IN_WEEK int = 604800
 const WEEKS_IN_YEAR int = 52
+const SECONDS_IN_DAY int = 86400
 
 type metrics struct {
 	Owner          string         `json:"owner"`
@@ -127,9 +128,83 @@ func commits_ratio(contributors []*github.Contributor) (map[string]float64, erro
 	return ratio_map, nil
 }
 
+func commits_per_contrib(contributors []*github.Contributor) (map[string]int, error) {
+	if contributors == nil {
+		return nil, fmt.Errorf("commit activity was nil")
+	}
+	var contib_activity map[string]int = make(map[string]int)
+	for _, contrib := range contributors {
+		if contrib != nil {
+			contib_activity[*contrib.Login] = *contrib.Contributions
+		}
+	}
+	return contib_activity, nil
+}
+
+func get_all_issues(client *github.Client, ctx context.Context, owner string, repo string) ([]*github.Issue, error) {
+	options := new(github.ListOptions)
+	options.PerPage = 100
+	issue_options := new(github.IssueListByRepoOptions)
+	issue_options.ListOptions = *options
+	issue_options.ListOptions.Page = 1
+	issue_options.State = "closed"
+	var issue_array []*github.Issue = make([]*github.Issue, 0)
+	issues_parsed := false
+	for !issues_parsed {
+		issues, _, err := client.Issues.ListByRepo(ctx, owner, repo, issue_options)
+		if err != nil {
+			return nil, err
+		}
+		if len(issues) == 0 {
+			issues_parsed = true
+		}
+		for _, issue := range issues {
+			if issue.ClosedAt != nil && issue.PullRequestLinks == nil {
+				issue_array = append(issue_array, issue)
+			}
+		}
+		issue_options.ListOptions.Page++
+	}
+	return issue_array, nil
+}
+
+func get_all_contributors(client *github.Client, ctx context.Context, owner string, repo string) ([]*github.Contributor, error) {
+	options := new(github.ListOptions)
+	options.PerPage = 100
+	contrib_options := new(github.ListContributorsOptions)
+	contrib_options.ListOptions = *options
+	contrib_options.ListOptions.Page = 1
+	var contributors []*github.Contributor = make([]*github.Contributor, 0)
+	traversing := true
+	for traversing {
+		contrib_page, _, err := client.Repositories.ListContributors(ctx, owner, repo, contrib_options)
+		if err != nil {
+			return nil, err
+		}
+		if len(contrib_page) == 0 {
+			traversing = false
+		} else {
+			contributors = append(contributors, contrib_page...)
+		}
+		contrib_options.ListOptions.Page++
+	}
+	return contributors, nil
+}
+
+func mean_issue_time(issues []*github.Issue) (float64, error) {
+	var mean_time_issue uint64 = 0
+	if issues == nil {
+		return 0, fmt.Errorf("issues are nil")
+	}
+	for _, issue := range issues {
+		mean_time_issue += uint64(issue.ClosedAt.Unix() - issue.CreatedAt.Unix())
+	}
+	return (float64(mean_time_issue) / float64(len(issues))) / float64(SECONDS_IN_DAY), nil
+}
+
 func main() {
-	owner := "brave"
-	input_repo := "brave-browser"
+	owner := "alexandersep"
+	input_repo := "CSU33012-SWENG-ASS1"
 
 	// ==AUTHORISATION==
 	// If the var 'token' is still an empty string (I.E. not hard-coded to a value),
@@ -180,6 +255,8 @@ func main() {
 	blocking := true
 	var repo *github.Repository
 	var contributors []*github.Contributor
+	var issue_time float64
+	var current_week_activity *github.WeeklyCommitActivity
 	for blocking {
 
 		commit_activity, _, err = client.Repositories.ListCommitActivity(ctx, owner, input_repo)
@@ -202,43 +279,39 @@ func main() {
 
 		blocking = isBlocking(err) || blocking
 
-		options := new(github.ListOptions)
-		options.PerPage = 100
-		contrib_options := new(github.ListContributorsOptions)
-		contrib_options.ListOptions = *options
-		contrib_options.ListOptions.Page = 1
-		traversing := true
-		for traversing {
-			contrib_page, _, err := client.Repositories.ListContributors(ctx, owner, input_repo, contrib_options)
-			if err != nil {
-				println("ERROR: ", err)
-			}
-			if len(contrib_page) == 0 {
-				traversing = false
-			} else {
-				contributors = append(contributors, contrib_page...)
-			}
-			contrib_options.ListOptions.Page++
+		contributors, err = get_all_contributors(client, ctx, owner, input_repo)
+		if err != nil {
+			fmt.Print(err)
 		}
-		if err != nil && !isBlocking(err) {
-			println("Error: ", err.Error())
+		issues, err := get_all_issues(client, ctx, owner, input_repo)
+		if err != nil {
+			fmt.Print(err)
 		}
-		blocking = isBlocking(err) || blocking
+
+		issue_time, err = mean_issue_time(issues)
+		if err != nil {
+			fmt.Print(err)
+		}
+
+		current_week_activity = commit_activity[WEEKS_IN_YEAR-1]
 		if blocking {
 			time.Sleep(1 * time.Second)
 		}
 	}
+
 	commit_avg, err := weekly_commits(repo.CreatedAt.Time, commit_activity)
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
 	}
-	ratio, err := commits_ratio(contributors)
+	commits_map, err := commits_per_contrib(contributors)
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
 	}
 	println("Languages: ", fmt.Sprint(languages), "\n",
 		"Average weekly commits over past year: ", commit_avg, "\n",
-		"Ratio of commits to max committer: ", fmt.Sprint(ratio))
+		"Commits per contributor: ", fmt.Sprint(commits_map), "\n",
+		"Average days between issue completion: ", issue_time, "\n",
+		"Current week activity is: ", fmt.Sprintf(current_week_activity.String()))
 	populate_metrics(owner, input_repo, languages, commit_avg)
 	init_server()
 }
