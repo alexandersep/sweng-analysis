@@ -2,6 +2,7 @@
 import HelloWorld from './components/HelloWorld.vue'
 import pieChart from './components/pieChart.vue';
 import TheWelcome from './components/TheWelcome.vue'
+import GraphPage from './components/GraphPage.vue'
 </script>
 
 <script>
@@ -10,7 +11,7 @@ export default {
   //  data,
     data() {
         return {
-            isVisible: false,
+            onGraphs: false,
             owner: "",
             repo: "",
             languages: [],
@@ -85,20 +86,25 @@ export default {
 <template>
   <header>
     <div>
-      <custom-header v-bind:isVisible="false" page-title="Home"></custom-header>
+      <custom-header v-bind:onGraphs="false" page-title="Home"></custom-header>
     </div>
     <img alt="Vue logo" class="logo" src="./assets/sweng-logo.svg" width="200" height="200" />
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -400px;" @click="isVisible = !isVisible">Language Used {{ isVisible }}</button>
-    <div v-if="isVisible" ><pieChart/></div>
+    <button class="button" style="left: -400px;" @click="onGraphs = !onGraphs">Go To Graphs {{ onGraphs }}</button>
+    <div v-if="onGraphs" ><pieChart/></div>
 
   </header>
 
-  <main>
+  <main v-if="onGraphs == false">
     <TheWelcome/>
   </main>
+
+  <graphs v-if="onGraphs">
+    <GraphPage/>
+  </graphs>
+  
 </template>
 
 <style scoped>
