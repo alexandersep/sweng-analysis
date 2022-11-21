@@ -11,30 +11,46 @@ import AppVue from '../App.vue';
   </template>
   <script>  
   import axios from 'axios'
+   async function getData(){
+const data={
+  figures:[
+    'AppVue.data.methods'
+  ],
+  lines:[
+  'AppVue.data.methods'
+  ]
+}
+const resultSet = await AppVue.load(getData);
+  return resultSet.tablePivot().map(row=>({
+    label: parse(row['AppVue.data.methods']),
+    data: parseInt(row['AppVue.data.methods'])
+  }))
+  };
   export default{
     mounted(){
   console.log("component mounted")
   const ctx = document.getElementById('myChart')
   //this.languages=AppVue.data
   const data={
-    languages:[AppVue.data],
+  //const: language=AppVue.data,
 
-   method:{
+ /* method:{
         get_languages : function(){
         var path = 'http://localhost:9090/metrics'
       axios.get(path)
       .then((res) => {
         this.languages = res.data.languages;
-        console.log(this.languages);
+       // console.log(this.languages);
       })
         },
         beforeMount(){
        this.get_languages
         }
-    },
+    },*/
       labels:[ //here- where we should import the languages section of the data(from get metrics method?)
-      this.languages
-          /*'Assembly',
+//AppVue.methods.get_metrics()
+getData.label
+      /*'Assembly',
           'C',
           'C++',
           'Matlab',
@@ -44,7 +60,9 @@ import AppVue from '../App.vue';
       ],
       datasets:[{
           label:' percentage of language used',
-          data:[9562027,
+          data:[
+          //  getData.data,
+            9562027,
           1172686451/100,
           306510,
           2482,

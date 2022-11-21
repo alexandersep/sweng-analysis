@@ -9,7 +9,6 @@ import TheWelcome from './components/TheWelcome.vue'
 <script>
 import axios from 'axios'
 export default {
-  //  data,
     data() {
         return {
             isVisible: false,
