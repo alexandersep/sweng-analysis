@@ -11,12 +11,16 @@
 .button {
   background-color: var(--color-background-soft);
   border: none;
-  border-radius: 8px;
+  border-radius: 15px;
+  margin-top: 50px;
   color: var(--color-blue); 
+  font-size: large;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
+  width: 200px;
+  height: 100px;
 }
 
 a,

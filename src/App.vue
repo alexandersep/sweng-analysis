@@ -92,8 +92,7 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -400px;" @click="onGraphs = !onGraphs">Go To Graphs {{ onGraphs }}</button>
-    <div v-if="onGraphs" ><pieChart/></div>
+    <button class="button" style="left: -300px;" @click="onGraphs = !onGraphs"> Go Home/Graph {{  }}</button>
 
   </header>
 
