@@ -1,0 +1,40 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script src="https://cdn.rawgit.com/juijs/vue-graph/2216ae2f/dist/vue-graph.js"></script>
+</head>
+<body>
+<div id="app">
+    <graph-line
+            :width="600"
+            :height="400"
+            :shape="'normal'"
+            :axis-min="0"
+            :axis-max="50"
+            :axis-full-mode="true"
+            :focus-start="1"
+            :focus-end="2"
+            :labels="[ '1Q', '2Q', '3Q', '4Q' ]"
+            :names="names"
+            :values="values">
+        <note :text="'Line Chart'"></note>
+        <tooltip :names="names" :position="'right'"></tooltip>
+        <legends :names="names"></legends>
+        <guideline :tooltip-y="true"></guideline>
+    </graph-line>
+</div>
+<script>
+var vm = new Vue({
+    el: "#app",
+    data: {
+        names: [ 'MS', 'Apple', 'Google' ],
+        values: [
+            [ 10, 5, 5, 5 ],
+            [ 40, 10, 10, 10 ],
+            [ 30, 30, 30, 30 ]
+        ]
+    }
+});
+</script>
+</body>
+</html>

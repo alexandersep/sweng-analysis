@@ -53,7 +53,7 @@ type metrics struct {
 var user_metrics = metrics{}
 
 func getMetrics(context *gin.Context) {
-	context.Header("Access-Control-Allow-Origin", "http://127.0.0.1:5173")
+	context.Header("Access-Control-Allow-Origin", "*")
 	context.IndentedJSON(http.StatusOK, user_metrics)
 }
 
