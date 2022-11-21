@@ -1,5 +1,6 @@
 <script setup>
 import Chart from 'chart.js/auto';
+import { onBeforeMount } from 'vue';
 import AppVue from '../App.vue';
 </script>
 <template>
@@ -9,13 +10,16 @@ import AppVue from '../App.vue';
   
   </template>
   <script>  
+  import axios from 'axios'
   export default{
     mounted(){
   console.log("component mounted")
   const ctx = document.getElementById('myChart')
+  //this.languages=AppVue.data
   const data={
-    languages:[],
-    method:{
+    languages:[AppVue.data],
+
+   method:{
         get_languages : function(){
         var path = 'http://localhost:9090/metrics'
       axios.get(path)
@@ -23,16 +27,20 @@ import AppVue from '../App.vue';
         this.languages = res.data.languages;
         console.log(this.languages);
       })
+        },
+        beforeMount(){
+       this.get_languages
         }
     },
       labels:[ //here- where we should import the languages section of the data(from get metrics method?)
-          'Assembly',
+      this.languages
+          /*'Assembly',
           'C',
           'C++',
           'Matlab',
           'Python',
           'Shell',
-          'XS'
+          'XS'*/
       ],
       datasets:[{
           label:' percentage of language used',

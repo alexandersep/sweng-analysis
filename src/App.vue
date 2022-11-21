@@ -1,5 +1,7 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+import barChart from './components/barChart.vue';
+import radarChart from './components/radarChart.vue';
 import pieChart from './components/pieChart.vue';
 import TheWelcome from './components/TheWelcome.vue'
 </script>
@@ -11,6 +13,7 @@ export default {
     data() {
         return {
             isVisible: false,
+            isVisible2:false,
             owner: "",
             repo: "",
             languages: [],
@@ -29,56 +32,12 @@ export default {
                 console.log(this.owner, this.repo, this.languages, this.avg_commits);
             });
         },
-        /* get_pieChart: function(){
-           data: data={
-       labels:[ //here- where we should import the languages section of the data(from get metrics method?)
-           'Assembly',
-           'C',
-           'C++',
-           'Matlab',
-           'Python',
-           'Shell',
-           'XS'
-       ],
-       datasets:[{
-           label:' percentage of language used',
-           data:[9562027,
-           1172686451/100,
-           306510,
-           2482,
-           1343777,
-           3836500,
-           1239
-       ],
-       backgroundColor: [
-         //enough for additions to be made
-           'rgb(255, 99, 132)',
-           'rgb(54, 162, 235)',
-           'rgb(255, 205, 86)',
-           'rgb(0, 120, 0)',
-           'rgb(219, 255, 51)',
-           'rgb(51, 255, 189)',
-           'rgb(131, 51, 255)',
-           'rgb(252, 51, 255)',
-           'rgb(16, 2, 16)',
-           'rgb(233, 113, 235)',
-           'rgb(235, 172, 113)',
-           'rgb(238, 236, 228)'
-         ]
-       }],
-      hoverOffset:4,
-   },
-    myChart=new Chart(ctx,{
-     type: 'doughnut',
-     data: data2,
-       }
-   )   */
+        
     },
     beforeMount() {
         this.get_metrics();
-        //this.get_pieChart();
     },
-    components: { TheWelcome }
+    components: { TheWelcome,pieChart }
 }
 </script>
 
@@ -91,8 +50,11 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -400px;" @click="isVisible = !isVisible">Language Used {{ isVisible }}</button>
+    <button class="button" style="left: -50px " @click="isVisible = !isVisible">Language Used {{ isVisible }}</button>
     <div v-if="isVisible" ><pieChart/></div>
+    <button class="button" style="left: 100 " @click="isVisible2 = !isVisible2">radar chart {{ isVisible2 }}</button>
+    <div v-if="isVisible2" ><radarChart/></div>
+
 
   </header>
 
