@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vue-graph": "^0.9.3"
+  }
+}
