@@ -91,7 +91,8 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button"  @click="onGraphs = !onGraphs"> Go Home/Graph</button>
+    <button class="button"  v-if="onGraphs == false" @click="onGraphs = !onGraphs"> Go To Graphs</button>
+    <button class="button"  v-if="onGraphs == true" @click="onGraphs = !onGraphs"> Go To Home</button>
   </header>
 
   <main v-if="onGraphs == false" class="main">

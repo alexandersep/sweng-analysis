@@ -1,6 +1,5 @@
 <script setup>
 import Chart from 'chart.js/auto';
-import AppVue from '../App.vue';
 </script>
 <template>
     <div class="hello">
