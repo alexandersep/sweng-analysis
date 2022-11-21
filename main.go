@@ -211,8 +211,23 @@ func main() {
 
 		blocking = isBlocking(err) || blocking
 
-		commits, _, err = client.Repositories.ListCommits(ctx, owner, input_repo, nil)
-
+		options := new(github.ListOptions)
+		options.PerPage = 10000
+		commits_options := new(github.CommitsListOptions)
+		commits_options.ListOptions = *options
+		commits_options.ListOptions.Page = 1
+		traversing := true
+		for traversing {
+			commit_page, _, err := client.Repositories.ListCommits(ctx, owner, input_repo, commits_options)
+			commits = append(commits, commit_page...)
+			if err != nil {
+				println("ERROR: ", err)
+			}
+			if len(commit_page) == 0 {
+				traversing = false
+			}
+			commits_options.ListOptions.Page++
+		}
 		if err != nil && !isBlocking(err) {
 			println("Error: ", err.Error())
 		}
