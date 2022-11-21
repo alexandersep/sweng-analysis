@@ -44,10 +44,11 @@ const SECONDS_IN_WEEK int = 604800
 const WEEKS_IN_YEAR int = 52
 
 type metrics struct {
-	Owner          string         `json:"owner"`
-	Repo           string         `json:"repo"`
-	Languages      map[string]int `json:"languages"`
-	Commit_Average float64        `json:"average_commits_this_year"`
+	Owner          string         		`json:"owner"`
+	Repo           string         		`json:"repo"`
+	Languages      map[string]int 		`json:"languages"`
+	Commit_Average float64        		`json:"average_commits_this_year"`
+	Ratio          map[string]float64	`json:"ratio"`
 }
 
 var user_metrics = metrics{}
@@ -57,9 +58,9 @@ func getMetrics(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, user_metrics)
 }
 
-func populate_metrics(owner, repo string, languages map[string]int, commit_avg float64) {
+func populate_metrics(owner, repo string, languages map[string]int, commit_avg float64, ratio map[string]float64) {
 	user_metrics = metrics{
-		Owner: owner, Repo: repo, Languages: languages, Commit_Average: commit_avg,
+		Owner: owner, Repo: repo, Languages: languages, Commit_Average: commit_avg, Ratio: ratio,
 	}
 }
 
@@ -232,6 +233,6 @@ func main() {
 	println("Languages: ", fmt.Sprint(languages), "\n",
 		"Average weekly commits over past year: ", commit_avg, "\n",
 		"Ratio of commits to max committer: ", fmt.Sprint(ratio))
-	populate_metrics(owner, input_repo, languages, commit_avg)
+	populate_metrics(owner, input_repo, languages, commit_avg, ratio)
 	init_server()
 }
