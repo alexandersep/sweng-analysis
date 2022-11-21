@@ -46,7 +46,7 @@ import CodeIcon from './icons/IconCode.vue'
     <h3>Frontend</h3>
     Alexander Sepelenco:
     <a href="mailto:sepelena@tcd.ie" target="_blank" rel="noopener">sepelena@tcd.ie</a>,
-    R(adri):
+    Adri:
     <a href="hrabowya@tcd.ie" target="_blank" rel="noopener">hrabowya@tcd.ie</a>
     <h3>Graphing</h3>
     Adam:
