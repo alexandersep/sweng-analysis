@@ -108,37 +108,28 @@ func weekly_commits(created_at time.Time, commit_activity []*github.WeeklyCommit
 	return commit_avg, nil
 }
 
-func commits_ratio(commits []*github.RepositoryCommit) (map[string]float64, error) {
-	var commit_map map[string]int = make(map[string]int)
-	if commits == nil {
+func commits_ratio(contributors []*github.Contributor) (map[string]float64, error) {
+	if contributors == nil {
 		return nil, fmt.Errorf("commit activity was nil")
-	}
-	for _, commit := range commits {
-		if commit.Author != nil {
-			_, exists := commit_map[*commit.Author.Login]
-			if exists {
-				commit_map[*commit.Author.Login]++
-			} else {
-				commit_map[*commit.Author.Login] = 1
-			}
-		}
 	}
 	var ratio_map map[string]float64 = make(map[string]float64)
 	var max_commits int = 0
-	for _, commits := range commit_map {
-		if commits > max_commits {
-			max_commits = commits
+	for _, contrib := range contributors {
+		if *contrib.Contributions > max_commits {
+			max_commits = *contrib.Contributions
 		}
 	}
-	for committer, commits := range commit_map {
-		ratio_map[committer] = float64(commits) / float64(max_commits)
+	for _, contrib := range contributors {
+		if contrib != nil {
+			ratio_map[*contrib.Login] = float64(*contrib.Contributions) / float64(max_commits)
+		}
 	}
 	return ratio_map, nil
 }
 
 func main() {
-	owner := "torvalds"
-	input_repo := "linux"
+	owner := "brave"
+	input_repo := "brave-browser"
 
 	// ==AUTHORISATION==
 	// If the var 'token' is still an empty string (I.E. not hard-coded to a value),
@@ -188,7 +179,7 @@ func main() {
 	var languages map[string]int
 	blocking := true
 	var repo *github.Repository
-	var commits []*github.RepositoryCommit
+	var contributors []*github.Contributor
 	for blocking {
 
 		commit_activity, _, err = client.Repositories.ListCommitActivity(ctx, owner, input_repo)
@@ -212,21 +203,22 @@ func main() {
 		blocking = isBlocking(err) || blocking
 
 		options := new(github.ListOptions)
-		options.PerPage = 10000
-		commits_options := new(github.CommitsListOptions)
-		commits_options.ListOptions = *options
-		commits_options.ListOptions.Page = 1
+		options.PerPage = 100
+		contrib_options := new(github.ListContributorsOptions)
+		contrib_options.ListOptions = *options
+		contrib_options.ListOptions.Page = 1
 		traversing := true
 		for traversing {
-			commit_page, _, err := client.Repositories.ListCommits(ctx, owner, input_repo, commits_options)
-			commits = append(commits, commit_page...)
+			contrib_page, _, err := client.Repositories.ListContributors(ctx, owner, input_repo, contrib_options)
 			if err != nil {
 				println("ERROR: ", err)
 			}
-			if len(commit_page) == 0 {
+			if len(contrib_page) == 0 {
 				traversing = false
+			} else {
+				contributors = append(contributors, contrib_page...)
 			}
-			commits_options.ListOptions.Page++
+			contrib_options.ListOptions.Page++
 		}
 		if err != nil && !isBlocking(err) {
 			println("Error: ", err.Error())
@@ -240,7 +232,7 @@ func main() {
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
 	}
-	ratio, err := commits_ratio(commits)
+	ratio, err := commits_ratio(contributors)
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
 	}
