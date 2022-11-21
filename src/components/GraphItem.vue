@@ -17,7 +17,7 @@
 .graphitem {
   margin-top: 0px;
   margin-bottom: 100px;
-  display: flex;
+  display: block;
 }
 
 .details {

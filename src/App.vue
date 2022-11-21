@@ -109,37 +109,12 @@ export default {
 
 header {
   line-height: 1.5;
+  display: block;
+  place-items: center;
+  padding-right: calc(var(--section-gap) / 2);
 }
 
-@media (min-width: 1023px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: -450px 2rem 0 0;
-    position: absolute;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  header .button {
-    left: -275px;
-  }
-}
-
-@media (max-width: 1023px) {
-  .main{
-    top: 100px;
-  }
-
-  .logo {
+.logo {
     margin: 0 0 50px 0;
   }
 
@@ -149,6 +124,11 @@ header {
 
   header .button {
     margin: -500px 0 0 0;
+  }
+
+@media (max-width: 1023px) {
+  .main{
+    top: 100px;
   }
 }
 </style>
