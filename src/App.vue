@@ -79,11 +79,11 @@ export default {
         this.get_metrics();
         //this.get_pieChart();
     },
-    components: { TheWelcome }
+    components: { TheWelcome, GraphPage }
 }
 </script>
 
-<template>
+<template class = "page">
   <header>
     <div>
       <custom-header v-bind:onGraphs="false" page-title="Home"></custom-header>
@@ -92,11 +92,10 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -300px;" @click="onGraphs = !onGraphs"> Go Home/Graph</button>
-
+    <button class="button"  @click="onGraphs = !onGraphs"> Go Home/Graph</button>
   </header>
 
-  <main v-if="onGraphs == false">
+  <main v-if="onGraphs == false" class="main">
     <TheWelcome/>
   </main>
 
@@ -112,34 +111,6 @@ header {
   line-height: 1.5;
 }
 
-.box {
-  width: 50px;
-  height: 200px;
-  position: absolute;
-  bottom: 20px;
-}
-.box2 {
-  width: 50px;
-  height: 175px;
-  position: absolute;
-  bottom: 20px;
-  left: 50px;
-}
-.box3 {
-  width: 50px;
-  height: 100px;
-  position: absolute;
-  bottom: 20px;
-  left: 100px;
-}
-
-
-.logo {
-  display: block;
-  margin: 0 auto 4rem;
-  top: -50px;
-}
-
 @media (min-width: 1023px) {
   header {
     display: flex;
@@ -148,7 +119,7 @@ header {
   }
 
   .logo {
-    margin: 0 2rem 0 0;
+    margin: -450px 2rem 0 0;
     position: absolute;
   }
 
@@ -156,6 +127,32 @@ header {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
+  }
+
+  header .button {
+    left: -275px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .page {
+    display:block;
+  }
+
+  .main{
+    top: 100px;
+  }
+
+  .logo {
+    margin: 0 0 50px 0;
+  }
+
+  header .wrapper {
+    margin: 0 0 0 0;
+  }
+
+  header .button {
+    margin: -500px 0 0 0;
   }
 }
 </style>

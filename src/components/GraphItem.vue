@@ -1,5 +1,5 @@
 <template>
-    <div class="graph">
+    <div class="graphitem">
       <div class="details">
         <h3>
           <slot name="heading"></slot>
@@ -7,21 +7,21 @@
         <h1>
           <slot name="description"></slot>
         </h1>
-        <slot name="graph"></slot>
+        <slot class = "graph" name="graph"></slot>
       </div>
     </div>
 </template>
   
 
 <style scoped>
-.graph {
-  margin-top: 0rem;
+.graphitem {
+  margin-top: 0px;
+  margin-bottom: 100px;
   display: flex;
 }
 
 .details {
   flex: 1;
-  margin-left: rem;
 }
 
 h3 {
@@ -36,6 +36,11 @@ h1 {
   font-weight: 300;
   margin-bottom: 0.4rem;
   color: var(--color-heading);
+  margin-left: 10px;
+}
+
+.graph {
+    margin-bottom: 100px;
 }
 
 </style>
