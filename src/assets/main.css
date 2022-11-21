@@ -48,3 +48,14 @@ a,
     padding: 0 2rem;
   }
 }
+
+@media (max-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display:block;
+  }
+}

@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<template class = "page">
+<template>
   <header>
     <div>
       <custom-header v-bind:onGraphs="false" page-title="Home"></custom-header>
@@ -135,10 +135,6 @@ header {
 }
 
 @media (max-width: 1023px) {
-  .page {
-    display:block;
-  }
-
   .main{
     top: 100px;
   }
