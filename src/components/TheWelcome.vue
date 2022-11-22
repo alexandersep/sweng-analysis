@@ -42,7 +42,7 @@ import CodeIcon from './icons/IconCode.vue'
 
     <h2>Team Lead</h2>
     Brandon
-    <a href="TODO" target="_blank" rel="noopener">TODO@tcd.ie</a>,
+    <a href="TODO" target="_blank" rel="noopener">paisleyb@tcd.ie</a>,
     <h3>Frontend</h3>
     Alexander Sepelenco:
     <a href="mailto:sepelena@tcd.ie" target="_blank" rel="noopener">sepelena@tcd.ie</a>,
