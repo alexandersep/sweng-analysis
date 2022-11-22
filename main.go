@@ -206,13 +206,21 @@ func main() {
 	owner := "alexandersep"
 	input_repo := "CSU33012-SWENG-ASS1"
 
+	args := os.Args[1:]
+
 	// ==AUTHORISATION==
 	// If the var 'token' is still an empty string (I.E. not hard-coded to a value),
 	// we ask the terminal for a valid token. Either way, once we have a valid token,
 	// we set up 'client' to be a *github.client that's token authorised.
 
-	// Loads token from environment variables - if not set, can be taken from user as input.
-	var token string = os.Getenv("GITTOKEN")
+	// Loads token first from command line arguments, if not supplied, from environment variables, and finally from user input if all else fails.
+	var token string
+	if len(args) < 1 {
+		token = os.Getenv("GITTOKEN")
+	} else {
+		token = args[0]
+	}
+
 	// Variables we want to use outside of the loop.
 	ctx := context.Background()
 	var client *github.Client
@@ -293,7 +301,7 @@ func main() {
 			fmt.Print(err)
 		}
 
-		current_week_activity = commit_activity[WEEKS_IN_YEAR-1]
+		current_week_activity = commit_activity[len(commit_activity)-1]
 		if blocking {
 			time.Sleep(1 * time.Second)
 		}
@@ -311,7 +319,7 @@ func main() {
 		"Average weekly commits over past year: ", commit_avg, "\n",
 		"Commits per contributor: ", fmt.Sprint(commits_map), "\n",
 		"Average days between issue completion: ", issue_time, "\n",
-		"Current week activity is: ", fmt.Sprintf(current_week_activity.String()))
+		"Current week activity is: ", fmt.Sprint(current_week_activity.String()))
 	populate_metrics(owner, input_repo, languages, commit_avg)
 	init_server()
 }
