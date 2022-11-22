@@ -61,7 +61,7 @@ getData.label
       datasets:[{
           label:' percentage of language used',
           data:[
-          //  getData.data,
+          // getData.data,
             9562027,
           1172686451/100,
           306510,

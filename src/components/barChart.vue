@@ -4,17 +4,19 @@
     </div>
   
   </template>
+
   <script>
 import { Chart } from 'chart.js';
+
 export default{
 mounted(){
   console.log("component mounted")
   const ctx = document.getElementById('myChart')
-  const labels = Utils.months({count: 7});
+ const labels = Utils.months({count: 7});
   const data = {
   labels: labels,
   datasets: [{
-    label: 'My First Dataset',
+    label: 'sampleBar',
     data: [65, 59, 80, 81, 56, 55, 40],
     backgroundColor: [
       'rgba(255, 99, 132, 0.2)',
