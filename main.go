@@ -45,10 +45,13 @@ const WEEKS_IN_YEAR int = 52
 const SECONDS_IN_DAY int = 86400
 
 type metrics struct {
-	Owner          string         `json:"owner"`
-	Repo           string         `json:"repo"`
-	Languages      map[string]int `json:"languages"`
-	Commit_Average float64        `json:"average_commits_this_year"`
+	Owner                 string         `json:"owner"`
+	Repo                  string         `json:"repo"`
+	Languages             map[string]int `json:"languages"`
+	Commit_Average        float64        `json:"average_commits_this_year"`
+	Commits_Map           map[string]int `json:"commits_map"`
+	Issue_Time            float64        `json:"issue_time"`
+	Current_Week_Activity []int          `json:"current_week_activity"`
 }
 
 var user_metrics = metrics{}
@@ -58,9 +61,10 @@ func getMetrics(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, user_metrics)
 }
 
-func populate_metrics(owner, repo string, languages map[string]int, commit_avg float64) {
+func populate_metrics(owner, repo string, languages, commits map[string]int, commit_avg, issue_time float64, activity []int) {
 	user_metrics = metrics{
 		Owner: owner, Repo: repo, Languages: languages, Commit_Average: commit_avg,
+		Commits_Map: commits, Issue_Time: issue_time, Current_Week_Activity: activity,
 	}
 }
 
@@ -319,6 +323,6 @@ func main() {
 		"Commits per contributor: ", fmt.Sprint(commits_map), "\n",
 		"Average days between issue completion: ", issue_time, "\n",
 		"Current week activity is: ", fmt.Sprint(current_week_activity))
-	populate_metrics(owner, input_repo, languages, commit_avg)
+	populate_metrics(owner, input_repo, languages, commits_map, commit_avg, issue_time, current_week_activity)
 	init_server()
 }
