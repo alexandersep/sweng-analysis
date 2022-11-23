@@ -204,7 +204,7 @@ func mean_issue_time(issues []*github.Issue) (float64, error) {
 
 func main() {
 	owner := "alexandersep"
-	input_repo := "CSU33012-SWENG-ASS1"
+	input_repo := "pico-probe"
 
 	args := os.Args[1:]
 
@@ -301,12 +301,11 @@ func main() {
 			fmt.Print(err)
 		}
 
-		current_week_activity = commit_activity[len(commit_activity)-1].Days
 		if blocking {
 			time.Sleep(1 * time.Second)
 		}
 	}
-
+	current_week_activity = commit_activity[len(commit_activity)-1].Days
 	commit_avg, err := weekly_commits(repo.CreatedAt.Time, commit_activity)
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
