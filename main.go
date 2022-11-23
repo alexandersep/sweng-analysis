@@ -211,7 +211,7 @@ func mean_issue_time(issues []*github.Issue) (float64, error) {
 
 func main() {
 	owner := "alexandersep"
-	input_repo := "pico-probe"
+	input_repo := "CSU33012-SWENG-ASS1"
 
 	args := os.Args[1:]
 
