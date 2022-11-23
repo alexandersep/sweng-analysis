@@ -264,7 +264,7 @@ func main() {
 	var repo *github.Repository
 	var contributors []*github.Contributor
 	var issue_time float64
-	var current_week_activity *github.WeeklyCommitActivity
+	var current_week_activity []int
 	for blocking {
 
 		commit_activity, _, err = client.Repositories.ListCommitActivity(ctx, owner, input_repo)
@@ -301,7 +301,7 @@ func main() {
 			fmt.Print(err)
 		}
 
-		current_week_activity = commit_activity[len(commit_activity)-1]
+		current_week_activity = commit_activity[len(commit_activity)-1].Days
 		if blocking {
 			time.Sleep(1 * time.Second)
 		}
@@ -319,7 +319,7 @@ func main() {
 		"Average weekly commits over past year: ", commit_avg, "\n",
 		"Commits per contributor: ", fmt.Sprint(commits_map), "\n",
 		"Average days between issue completion: ", issue_time, "\n",
-		"Current week activity is: ", fmt.Sprint(current_week_activity.String()))
+		"Current week activity is: ", fmt.Sprint(current_week_activity))
 	populate_metrics(owner, input_repo, languages, commit_avg)
 	init_server()
 }
