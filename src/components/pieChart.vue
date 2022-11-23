@@ -11,7 +11,7 @@ import AppVue from '../App.vue';
   </template>
   <script>  
   import axios from 'axios'
-   async function getData(){
+   /*async function getData(){
 const data={
   figures:[
     'AppVue.data.methods'
@@ -25,11 +25,46 @@ const resultSet = await AppVue.load(getData);
     label: parse(row['AppVue.data.methods']),
     data: parseInt(row['AppVue.data.methods'])
   }))
-  };
+  };*/
   export default{
+    data: () => ({
+    // loaded: false,
+    chartData: null,
+  }),
+  beforeMount() {
+    this.loaded = false
+    var path = "http://localhost:9090/metrics";
+    axios.get(path)
+      .then((res) => {
+        const languages = res.data.languages;
+        const labels = [];
+        const datasets = [];
+        Object.keys(languages).forEach(key => {
+          labels.push(key);
+          datasets.push(languages[key])
+        })
+      })
+    },
     mounted(){
+        this.loaded=true
   console.log("component mounted")
   const ctx = document.getElementById('myChart')
+  data: () => ({
+    // loaded: false,
+    chartData: null,
+  }),
+    this.loaded = false
+    var path = "http://localhost:9090/metrics";
+    axios.get(path)
+      .then((res) => {
+        const languages = res.data.languages;
+        const labels = [];
+        const datasets = [];
+        Object.keys(languages).forEach(key => {
+          labels.push(key);
+          datasets.push(languages[key])
+        })
+      })
   //this.languages=AppVue.data
   const data={
   //const: language=AppVue.data,
@@ -47,9 +82,10 @@ const resultSet = await AppVue.load(getData);
        this.get_languages
         }
     },*/
-      labels:[ //here- where we should import the languages section of the data(from get metrics method?)
+      labels:[this.labels],
+        //label.pull()
+         //here- where we should import the languages section of the data(from get metrics method?)
 //AppVue.methods.get_metrics()
-getData.label
       /*'Assembly',
           'C',
           'C++',
@@ -57,7 +93,7 @@ getData.label
           'Python',
           'Shell',
           'XS'*/
-      ],
+     
       datasets:[{
           label:' percentage of language used',
           data:[
