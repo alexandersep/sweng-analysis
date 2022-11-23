@@ -217,7 +217,7 @@ func main() {
 
 	// ==AUTHORISATION==
 	// If the var 'token' is still an empty string (I.E. not hard-coded to a value),
-	// we ask the terminal for a valid token. Either way, once we have a valid token,
+	// we ask the os, then arguments, then terminal for a valid token. Once we have a valid token,
 	// we set up 'client' to be a *github.client that's token authorised.
 
 	// Loads token first from command line arguments, if not supplied, from environment variables, and finally from user input if all else fails.
