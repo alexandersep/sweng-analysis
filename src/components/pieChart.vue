@@ -1,45 +1,16 @@
 <script setup>
 import Chart from 'chart.js/auto';
-import { onBeforeMount } from 'vue';
-import AppVue from '../App.vue';
 </script>
 <template>
   <div class="hello">
-    {{ chartData }}
     <canvas id="myChart" width="400" height="100"></canvas>
   </div>
 
 </template>
 <script>
 import axios from 'axios'
-/*async function getData(){
-const data={
-figures:[
- 'AppVue.data.methods'
-],
-lines:[
-'AppVue.data.methods'
-]
-}
-const resultSet = await AppVue.load(getData);
-return resultSet.tablePivot().map(row=>({
- label: parse(row['AppVue.data.methods']),
- data: parseInt(row['AppVue.data.methods'])
-}))
-};*/
+
 export default {
-  data: () => ({
-    chartData: null,
-    labels: [],
-    datasets: []
-  }),
-  beforeMount() {
-    var path = "http://localhost:9090/metrics";
-    axios.get(path)
-      .then((res) => {
-        this.chartData = res.data.languages;
-      })
-  },
   mounted() {
     // var data = null;
     var path = "http://localhost:9090/metrics";
@@ -76,62 +47,6 @@ export default {
         });
         myChart;
       })
-
-
-
-
-    // const data = {
-    //   labels: [this.labels],
-
-    //   datasets: [{
-    //     label: 'percentage',
-    //     data: [
-    //       // getData.data,
-    //       9562027,
-    //       1172686451 / 100,
-    //       306510,
-    //       2482,
-    //       1343777,
-    //       3836500,
-    //       1239
-    //     ],
-
-    //     backgroundColor: [
-    //       //enough for additions to be made
-    //       'rgb(255, 99, 132)',
-    //       'rgb(54, 162, 235)',
-    //       'rgb(255, 205, 86)',
-    //       'rgb(0, 120, 0)',
-    //       'rgb(219, 255, 51)',
-    //       'rgb(51, 255, 189)',
-    //       'rgb(131, 51, 255)',
-    //       'rgb(252, 51, 255)',
-    //       'rgb(16, 2, 16)',
-    //       'rgb(233, 113, 235)',
-    //       'rgb(235, 172, 113)',
-    //       'rgb(238, 236, 228)',
-    //       'rgb(255, 99, 132)',
-    //       'rgb(54, 162, 235)',
-    //       'rgb(255, 205, 86)',
-    //       'rgb(0, 120, 0)',
-    //       'rgb(219, 255, 51)',
-    //       'rgb(51, 255, 189)',
-    //       'rgb(131, 51, 255)',
-    //       'rgb(252, 51, 255)',
-    //       'rgb(16, 2, 16)',
-    //       'rgb(233, 113, 235)',
-    //       'rgb(235, 172, 113)',
-    //       'rgb(238, 236, 228)'
-    //     ]
-    //   }],
-    //   hoverOffset: 4,
-    // }
-    // const myChart = new Chart(ctx, {
-    //   type: 'doughnut',
-    //   data: data,
-    // }
-    // );
-    // myChart;
   }
 }
 </script>
