@@ -196,6 +196,9 @@ func mean_issue_time(issues []*github.Issue) (float64, error) {
 	if issues == nil {
 		return 0, fmt.Errorf("issues are nil")
 	}
+	if len(issues) == 0 {
+		return 0, nil
+	}
 	for _, issue := range issues {
 		mean_time_issue += uint64(issue.ClosedAt.Unix() - issue.CreatedAt.Unix())
 	}
