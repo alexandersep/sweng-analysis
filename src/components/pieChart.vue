@@ -5,7 +5,7 @@ import AppVue from '../App.vue';
 </script>
 <template>
   <div class="hello">
-    {{labels[0]}}
+    {{ chartData }}
     <canvas id="myChart" width="400" height="100"></canvas>
   </div>
 
@@ -37,69 +37,101 @@ export default {
     var path = "http://localhost:9090/metrics";
     axios.get(path)
       .then((res) => {
-        const languages = res.data.languages;
-        Object.keys(languages).forEach(key => {
-          this.labels.push(key);
-          this.datasets.push(languages[key])
-        })
+        this.chartData = res.data.languages;
       })
   },
   mounted() {
-    this.loaded = true
-    console.log("component mounted")
-    const ctx = document.getElementById('myChart')
-    const data = {
-      labels: [this.labels],
+    // var data = null;
+    var path = "http://localhost:9090/metrics";
+    axios.get(path)
+      .then((res) => {
+        var languages = res.data.languages;
+        console.log(languages)
+        const ctx = document.getElementById('myChart')
 
-      datasets: [{
-        label: 'percentage',
-        data: [
-          // getData.data,
-          9562027,
-          1172686451 / 100,
-          306510,
-          2482,
-          1343777,
-          3836500,
-          1239
-        ],
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: Object.keys(languages),
+            datasets: [{
+              label: 'percentage',
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(0, 120, 0)',
+                'rgb(219, 255, 51)',
+                'rgb(51, 255, 189)',
+                'rgb(131, 51, 255)',
+                'rgb(252, 51, 255)',
+                'rgb(16, 2, 16)',
+                'rgb(233, 113, 235)',
+                'rgb(235, 172, 113)',
+                'rgb(238, 236, 228)',
+              ],
+              hoverOffset: 4,
+              data: Object.values(languages)
+            }]
+          }
+        });
+        myChart;
+      })
 
-        backgroundColor: [
-          //enough for additions to be made
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-          'rgb(0, 120, 0)',
-          'rgb(219, 255, 51)',
-          'rgb(51, 255, 189)',
-          'rgb(131, 51, 255)',
-          'rgb(252, 51, 255)',
-          'rgb(16, 2, 16)',
-          'rgb(233, 113, 235)',
-          'rgb(235, 172, 113)',
-          'rgb(238, 236, 228)',
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-          'rgb(0, 120, 0)',
-          'rgb(219, 255, 51)',
-          'rgb(51, 255, 189)',
-          'rgb(131, 51, 255)',
-          'rgb(252, 51, 255)',
-          'rgb(16, 2, 16)',
-          'rgb(233, 113, 235)',
-          'rgb(235, 172, 113)',
-          'rgb(238, 236, 228)'
-        ]
-      }],
-      hoverOffset: 4,
-    }
-    const myChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: data,
-    }
-    );
-    myChart;
+
+
+
+    // const data = {
+    //   labels: [this.labels],
+
+    //   datasets: [{
+    //     label: 'percentage',
+    //     data: [
+    //       // getData.data,
+    //       9562027,
+    //       1172686451 / 100,
+    //       306510,
+    //       2482,
+    //       1343777,
+    //       3836500,
+    //       1239
+    //     ],
+
+    //     backgroundColor: [
+    //       //enough for additions to be made
+    //       'rgb(255, 99, 132)',
+    //       'rgb(54, 162, 235)',
+    //       'rgb(255, 205, 86)',
+    //       'rgb(0, 120, 0)',
+    //       'rgb(219, 255, 51)',
+    //       'rgb(51, 255, 189)',
+    //       'rgb(131, 51, 255)',
+    //       'rgb(252, 51, 255)',
+    //       'rgb(16, 2, 16)',
+    //       'rgb(233, 113, 235)',
+    //       'rgb(235, 172, 113)',
+    //       'rgb(238, 236, 228)',
+    //       'rgb(255, 99, 132)',
+    //       'rgb(54, 162, 235)',
+    //       'rgb(255, 205, 86)',
+    //       'rgb(0, 120, 0)',
+    //       'rgb(219, 255, 51)',
+    //       'rgb(51, 255, 189)',
+    //       'rgb(131, 51, 255)',
+    //       'rgb(252, 51, 255)',
+    //       'rgb(16, 2, 16)',
+    //       'rgb(233, 113, 235)',
+    //       'rgb(235, 172, 113)',
+    //       'rgb(238, 236, 228)'
+    //     ]
+    //   }],
+    //   hoverOffset: 4,
+    // }
+    // const myChart = new Chart(ctx, {
+    //   type: 'doughnut',
+    //   data: data,
+    // }
+    // );
+    // myChart;
   }
 }
 </script>
