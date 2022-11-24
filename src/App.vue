@@ -13,7 +13,8 @@ export default {
       owner: '',
       repo: '',
       languages: [],
-      avg_commits: 0
+      avg_commits: 0,
+      ratio: []
     }
   },
   methods: {
@@ -25,6 +26,7 @@ export default {
         this.repo = res.data.repo;
         this.languages = res.data.languages;
         this.avg_commits = res.data.average_commits_this_year;
+        this.ratio = res.data.ratio;
         console.log(this.owner, this.repo, this.languages, this.avg_commits);
       })
     }
@@ -49,7 +51,6 @@ export default {
     <div v-if="isVisible" class="box2" style="background: blue"></div>
     <div v-if="isVisible" class="box3" style="background: green"></div>
   </header>
-
   <main>
     <TheWelcome />
   </main>
