@@ -9,34 +9,33 @@ import TheWelcome from './components/TheWelcome.vue'
 <script>
 import axios from 'axios'
 export default {
-    data() {
-        return {
-            isVisible: false,
-            isVisible2:false,
-            owner: "",
-            repo: "",
-            languages: [],
-            avg_commits: 0
-        };
-    },
-    methods: {
-        get_metrics: function () {
-            var path = "http://localhost:9090/metrics";
-            axios.get(path)
-                .then((res) => {
-                this.owner = res.data.owner;
-                this.repo = res.data.repo;
-                this.languages = res.data.languages;
-                this.avg_commits = res.data.average_commits_this_year;
-                console.log(this.owner, this.repo, this.languages, this.avg_commits);
-            });
-        },
-        
-    },
-    beforeMount() {
-        this.get_metrics();
-    },
-    components: { TheWelcome,pieChart }
+  data() {
+    return {
+      isVisible: false, 
+      owner: '',
+      repo: '',
+      languages: [],
+      avg_commits: 0,
+      ratio: []
+    }
+  },
+  methods: {
+    get_metrics: function()  {
+      var path = 'http://localhost:9090/metrics'
+      axios.get(path)
+      .then((res) => {
+        this.owner = res.data.owner;
+        this.repo = res.data.repo;
+        this.languages = res.data.languages;
+        this.avg_commits = res.data.average_commits_this_year;
+        this.ratio = res.data.ratio;
+        console.log(this.owner, this.repo, this.languages, this.avg_commits);
+      })
+    }
+  },
+  beforeMount(){
+    this.get_metrics()
+  }
 }
 </script>
 
@@ -56,7 +55,6 @@ export default {
 
 
   </header>
-
   <main>
     <TheWelcome/>
   </main>
