@@ -28,11 +28,8 @@ jobs:
         go-version: 1.19
         cache: true
 
-    - name: Install Go dependencies
-      run: go get .
-
     - name: Build Go files
-      run: go build -v ./...
+      run: go build main.go 
 
     - name: Test
       run: go test -args ${{ secrets.GHAPI_ACCESS_TOKEN }}
