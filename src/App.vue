@@ -1,11 +1,13 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+import barChart from './components/barChart.vue';
+import radarChart from './components/radarChart.vue';
+import pieChart from './components/pieChart.vue';
 import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <script>
 import axios from 'axios'
-
 export default {
   data() {
     return {
@@ -46,13 +48,15 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -400px;" @click="isVisible = !isVisible">Histogram Example? {{ isVisible }}</button>
-    <div v-if="isVisible" class="box" style="background: red"></div>
-    <div v-if="isVisible" class="box2" style="background: blue"></div>
-    <div v-if="isVisible" class="box3" style="background: green"></div>
+    <button class="button" style="left: -50px " @click="isVisible = !isVisible">Language Used {{ isVisible }}</button>
+    <div v-if="isVisible" ><pieChart/></div>
+    <button class="button" style="left: 100 " @click="isVisible2 = !isVisible2">radar chart {{ isVisible2 }}</button>
+    <div v-if="isVisible2" ><radarChart/></div>
+
+
   </header>
   <main>
-    <TheWelcome />
+    <TheWelcome/>
   </main>
 </template>
 
@@ -82,6 +86,8 @@ header {
   bottom: 20px;
   left: 100px;
 }
+
+
 .logo {
   display: block;
   margin: 0 auto 4rem;
