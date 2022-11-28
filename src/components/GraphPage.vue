@@ -3,6 +3,7 @@
     import barChart from './barChart.vue';
     import LineChart from './LineChart.vue'
     import GraphItem from './GraphItem.vue'
+    import PolarAreaChart from './PolarAreaChart.vue'
 </script>
 
 <script>
@@ -47,6 +48,17 @@
         Weekly Commits
     </button>
 
+    <button 
+        @click="whichGraph = 3"
+        class="button"  
+        :style="{
+        color: whichGraph == 3 ? 'var(--color-red)' : 'var(--color-blue)',
+        borderColor: whichGraph == 3 ? 'var(--color-red)' : 'var(--color-blue)',
+      }"
+    > 
+        Polar Chart
+    </button>
+
     <GraphItem v-if="whichGraph == 0">
         <template #heading>Languages Used</template>
         <template #description>A pie chart describing the percentage of languages used in a repo.</template>
@@ -62,7 +74,13 @@
     <GraphItem v-if="whichGraph == 2">
         <template #heading>Weekly Commits</template>
         <template #description>A line chart describing the timeframe of weekly commits. </template>
-        <template #graph><lineChart/></template>
+        <template #graph><LineChart/></template>
+    </GraphItem>
+
+    <GraphItem v-if="whichGraph == 4">
+        <template #heading>Polar Area Chart</template>
+        <template #description>???? </template>
+        <template #graph><PolarAreaChart/></template>
     </GraphItem>
 </template>
 
