@@ -34,7 +34,7 @@
         borderColor: whichGraph == 1 ? 'var(--color-red)' : 'var(--color-blue)',
       }"
     > 
-        Top Users
+        Users by Commit
     </button>
     <button 
         @click="whichGraph = 2"
