@@ -42,17 +42,17 @@ import CodeIcon from './icons/IconCode.vue'
 
     <h2>Team Lead</h2>
     Brandon
-    <a href="TODO" target="_blank" rel="noopener">TODO@tcd.ie</a>,
+    <a href="mailto:paisleyb@tcd.ie" target="_blank" rel="noopener">paisleyb@tcd.ie</a>,
     <h3>Frontend</h3>
     Alexander Sepelenco:
     <a href="mailto:sepelena@tcd.ie" target="_blank" rel="noopener">sepelena@tcd.ie</a>,
     R(adri):
-    <a href="TODO" target="_blank" rel="noopener">TODO@tcd.ie</a>
+    <a href="mailto:hrabowya@tcd.ie" target="_blank" rel="noopener">hrabowya@tcd.ie</a>
     <h3>Graphing</h3>
     Adam:
-    <a href="beattyad@tcd.ie" target="_blank" rel="noopener">beattyad@tcd.ie</a>,
+    <a href="mailto:beattyad@tcd.ie" target="_blank" rel="noopener">beattyad@tcd.ie</a>,
     Gerald:
-    <a href="TODO" target="_blank" rel="noopener">TODO@tcd.ie</a>
+    <a href="mailto:gparis@tcd.ie" target="_blank" rel="noopener">gparis@tcd.ie</a>
     <h3>Full-Stack</h3>
     Wesley Shaw:
     <a href="mailto:Weshaw@tcd.ie" target="_blank" rel="noopener">Weshaw@tcd.ie</a>
@@ -60,7 +60,7 @@ import CodeIcon from './icons/IconCode.vue'
     Niall Sauvage
     <a href="mailto:sauvagen@tcd.ie" target="_blank" rel="noopener">sauvagen@tcd.ie</a>,
     Daniel Penrose 
-    <a href="mailto:sauvagen@tcd.ie" target="_blank" rel="noopener">sauvagen@tcd.ie</a>
+    <a href="mailto:penrosed@tcd.ie" target="_blank" rel="noopener">penrosed@tcd.ie</a>
   </WelcomeItem>
 
 </template>
