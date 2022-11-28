@@ -1,87 +1,71 @@
 <template>
-    <PolarArea
-      :chart-options = "chartOptions"
-      :chart-data = "chartData"
-      :chart-id = "chartId"
-      :dataset-id-key = "datasetIdKey"
-      :plugins = "plugins"
-      :css-classes = "cssClasses"
-      :styles = "styles"
-      :width = "width"
-      :height = "height"
+  <div>
+    <canvas 
+      id = "polarAreaChart"
     />
-  </template>
 
+  </div>
+</template>
 
 <script>
-    import { PolarArea } from 'vue-chartjs'
-    import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, RadialLinearScale } from 'chart.js'
+  import Chart from 'chart.js/auto'
+  import axios from 'axios'
 
-    ChartJS.register(Title, Tooltip, Legend, ArcElement, RadialLinearScale)
-
-    export default {
-      name: 'PolarAreaChart',
-      components: { PolarArea },
-      props: {
-        chartId: {
-          type: String,
-          default: 'polar-area-chart'
-        },
-        datasetIdKey: {
-          type: String,
-          default: 'label'
-        },
-        width: {
-          type: Number,
-          default: 400  // Width of graph
-        },
-        height: {
-          type: Number,
-          default: 400  // Height of graph
-        },
-        cssClasses: {
-          default: '',
-          type: String
-        },
-        styles: {
-          type: Object,
-          default: () => {}
-        },
-        plugins: {
-          type: Array,
-          default: () => {}
-        }
-      },
-      data() {
-        return {
-          chartData: {
-            labels: [ 'Week 1', 'Week 2', 'Week 3', 'Week 4' ], // Labels for each polar area on the graph.
-            datasets: [ { 
-                label: 'Commits per week',  // Title of the graph.
-                data: [10, 10, 20, 5] ,     // Values of the polar areas on the graph
-                backgroundColor: [          // Colour of the polar areas. Can also use hex colour codes. Will colour areas in order of elements in array.
-                                            // e.g, This will have areas of colour red, grey, blue, yellow
-                    'orange',
-                    'grey',
-                    'blue',
-                    'yellow',
-                ], 
-                borderColor: [
-                    'black',
-                    'white',
-                ]     
+  export default {
+    mounted () {
+      var metrics = "http://localhost:9090/metrics"
+      axios.get(metrics)
+      .then((res) => {
+        const daysInAWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const avgWeekCommits = res.data.average_commits_this_year;
+        const trendLineForYear = [avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits];
+        const weeklyCommits = res.data.current_week_activity;
+        const ctx = document.getElementById('polarAreaChart')
+        const polarAreaChart = new Chart (ctx, {
+          type: 'polarArea',
+          data: {
+            labels: daysInAWeek,
+            datasets: [ {
+              label: "Commits from the Past Week",
+              data: weeklyCommits,
+              backgroundColor: [
+                '#fbf5f3',  // Snow
+                '#e28413',  // Fulvous
+                '#000022',  // Oxford Blue
+                '#de3c4b',  // Rusty Red
+                '#c42847',  // French Raspberry
+                '#331832',  // Dark Purple
+                '#d81e5b'   // Ruby
+              ],
+              borderColor: 'blue',
+              borderWidth: 1
             }, {
-                label: 'Lines per Week',
-                data: [20, 23, 45, 20],
-                backgroundColor: 'red',
-                borderColor: 'black'
-            } ]
+              label: "Average Weekly Commits",
+              data: trendLineForYear,
+              backgroundColor: [
+                '#f6bd60',  // Maximum Yellow Red
+                '#f7ede2',  // Linen
+                '#f5cac3',  // Baby Pink
+                '#84a59d',  // Morning Blue
+                '#f28482',  // Light Coral
+                '#246eb9',  // Spanish Blue
+                '#0d0630'   // Russian Violet
+              ],
+              borderColor: 'red',
+              borderWidth: 1
+            }]
           },
-          chartOptions: {
-            responsive: false,          // If false, sets the graph width and height according to props above.
-                                        // Otherwise, fills whole width of page with equal height.
+          options: {
+            responsive: true,
+            lineTension: 0, // Affects intensity of line curvature. Range of 0 - 1 for most ideal effects.
+            scales: {
+              y: {
+                beginAtZero: true,
+              }
+            }
           }
-        }
-      }
+        })
+      })
     }
+  }
 </script>
