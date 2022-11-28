@@ -4,6 +4,7 @@ import barChart from './components/barChart.vue';
 import pieChart from './components/pieChart.vue';
 import TheWelcome from './components/TheWelcome.vue'
 import LineChart from './components/LineChart.vue'
+import GraphPage from './components/GraphPage.vue'
 </script>
 
 <script>
@@ -11,9 +12,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      isVisible: false, 
-      isVisible2: false,
-      isVisible3: false,
+      onGraphs: false, 
       owner: '',
       repo: '',
       languages: [],
@@ -50,23 +49,17 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -50px " @click="isVisible = !isVisible">Top Users {{ isVisible }}</button>
-    <div v-if="isVisible" ><barChart/></div>
-    <button class="button" style="left: 10x " @click="isVisible2 = !isVisible2">Languages {{ isVisible2 }}</button>
-    <div v-if="isVisible2" ><pieChart /></div>
-
-    <button class="button" style="left: 70x " @click="isVisible3 = !isVisible3">
-      Weekly Commits {{ isVisible3 }}
-    </button>
-    <div v-if="isVisible3" >
-      <LineChart />
-    </div>
-    
+    <button class="button"  v-if="onGraphs == false" @click="onGraphs = !onGraphs"> Go To Graphs</button>
+    <button class="button"  v-if="onGraphs == true" @click="onGraphs = !onGraphs"> Go To Home</button>
 
   </header>
-  <main>
+  
+  <main v-if="onGraphs == false" class="main">
     <TheWelcome/>
   </main>
+  <graphs v-if="onGraphs">
+    <GraphPage/>
+  </graphs>
 </template>
 
 <style scoped>

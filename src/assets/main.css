@@ -8,15 +8,20 @@
   font-weight: normal;
 }
 
-.button {
-  background-color: var(--color-background-soft);
-  border: none;
-  border-radius: 8px;
-  color: var(--color-blue); 
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
+.button {	
+  background-color: var(--color-background-mute);	
+  border-width: 2.5px;	
+  border-color: var(--color-green);	
+  border-radius: 15px;	
+  color: var(--color-green); 	
+  font-size: 25px;	
+  font-weight: bold;	
+  text-align: center;	
+  text-decoration: none;	
+  display: inline-block;	
+  cursor: pointer;	
+  width: 200px;	
+  height: 100px;	
 }
 
 a,
@@ -34,7 +39,7 @@ a,
 
 @media (min-width: 1024px) {
   body {
-    display: flex;
+    top: 50px;
     place-items: center;
   }
 
@@ -43,4 +48,14 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+  		
+@media (max-width: 1024px) {	
+  body {	
+    display: flex;	
+    place-items: center;	
+  }	
+  #app {	
+    display:block;	
+  }	
+}
 }
