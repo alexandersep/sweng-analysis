@@ -3,7 +3,10 @@ import Chart from 'chart.js/auto';
 </script>
 <template>
     <div class="hello">
-      <canvas id="myChart" width="400" height="100"></canvas>
+      <canvas 
+        id="barChart" 
+        width="400" 
+        height="400" />
     </div>
   
   </template>
@@ -18,7 +21,7 @@ mounted(){
       .then((res) => {
         var commits = res.data.commits_map;
         console.log(commits)
-        const ctx = document.getElementById('myChart')
+        const ctx = document.getElementById('barChart')
 
         var myChart = new Chart(ctx, {
          
