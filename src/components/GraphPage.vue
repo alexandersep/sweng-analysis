@@ -121,7 +121,7 @@
 
     .buttonS
     {	
-        margin: 15px 50px 0 15%;
+        margin: 15px 15% 0 15%;
         background-color: var(--color-background-mute);	
         border-width: 2px;	
         border-radius: 15px;	
@@ -144,7 +144,7 @@
 
         .buttonS
         {
-            margin-top: 30px;
+            margin: 30px 85px 0 85px;
         }
     }
 </style>
