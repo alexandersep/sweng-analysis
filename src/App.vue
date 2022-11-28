@@ -1,9 +1,7 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-import barChart from './components/barChart.vue';
-import pieChart from './components/pieChart.vue';
 import TheWelcome from './components/TheWelcome.vue'
-import LineChart from './components/LineChart.vue'
+import GraphPage from './components/GraphPage.vue'
 </script>
 
 <script>
@@ -11,9 +9,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      isVisible: false, 
-      isVisible2: false,
-      isVisible3: false,
+      onGraphs: false, 
       owner: '',
       repo: '',
       languages: [],
@@ -50,75 +46,38 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -50px " @click="isVisible = !isVisible">Top Users {{ isVisible }}</button>
-    <div v-if="isVisible" ><barChart/></div>
-    <button class="button" style="left: 10x " @click="isVisible2 = !isVisible2">Languages {{ isVisible2 }}</button>
-    <div v-if="isVisible2" ><pieChart /></div>
-
-    <button class="button" style="left: 70x " @click="isVisible3 = !isVisible3">
-      Weekly Commits {{ isVisible3 }}
-    </button>
-    <div v-if="isVisible3" >
-      <LineChart />
-    </div>
-    
-
+    <button class="button"  v-if="onGraphs == false" @click="onGraphs = !onGraphs"> Go To Graphs</button>
+    <button class="button"  v-if="onGraphs == true" @click="onGraphs = !onGraphs"> Go To Home</button>
   </header>
-  <main>
+
+  <main v-if="onGraphs == false" class="main">
     <TheWelcome/>
   </main>
+  <graphs v-if="onGraphs">
+    <GraphPage/>
+  </graphs>
 </template>
 
 <style scoped>
 
 header {
   line-height: 1.5;
-}
-
-.box {
-  width: 50px;
-  height: 200px;
-  position: absolute;
-  bottom: 20px;
-}
-.box2 {
-  width: 50px;
-  height: 175px;
-  position: absolute;
-  bottom: 20px;
-  left: 50px;
-}
-.box3 {
-  width: 50px;
-  height: 100px;
-  position: absolute;
-  bottom: 20px;
-  left: 100px;
-}
-
-
-.logo {
   display: block;
-  margin: 0 auto 4rem;
-  top: -50px;
+  place-items: center;
+  padding-right: calc(var(--section-gap) / 2);
 }
-
-@media (min-width: 1023px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+.logo {
+    margin: 0 0 50px 0;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-    position: absolute;
-  }
-
   header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+    margin: 0 0 -75px 0;
+  }
+  header .button {
+    margin: 0 0 0 0;
+  }
+@media (max-width: 1023px) {
+  .main{
+    top: 100px;
   }
 }
 </style>
