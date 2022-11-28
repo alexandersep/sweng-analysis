@@ -35,7 +35,5 @@ h1 {
   color: var(--color-heading);
   margin-left: 10px;
 }
-.graph {
-    margin-bottom: 100px;
-}
+
 </style>
