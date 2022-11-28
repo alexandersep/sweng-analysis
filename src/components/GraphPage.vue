@@ -54,8 +54,8 @@
         @click="lineVPolar = true"
         class="buttonS"  
         :style="{
-        color: lineVPolar == 3 ? 'var(--color-pink)' : 'var(--color-green)',
-        borderColor: lineVPolar == 3 ? 'var(--color-pink)' : 'var(--color-green)',
+        color: lineVPolar ? 'var(--color-green)' : 'var(--color-pink)',
+        borderColor: lineVPolar ? 'var(--color-green)' : 'var(--color-pink)',
       }"
     > 
         Line Chart
@@ -65,8 +65,8 @@
         @click="lineVPolar = false"
         class="buttonS"  
         :style="{
-        color: lineVPolar ? 'var(--color-green)' : 'var(--color-pink)',
-        borderColor: lineVPolar == 3 ? 'var(--color-green)' : 'var(--color-pink)',
+        color: lineVPolar ? 'var(--color-pink)' : 'var(--color-green)',
+        borderColor: lineVPolar ? 'var(--color-pink)' : 'var(--color-green)',
       }"
     > 
         Polar Chart
@@ -122,7 +122,7 @@
         background-color: var(--color-background-mute);	
         border-width: 2px;	
         border-radius: 15px;	
-        color: var(--color-green); 	
+        color: var(--color-blue); 	
         font-size: 15px;	
         font-weight: bold;	
         text-align: center;	
