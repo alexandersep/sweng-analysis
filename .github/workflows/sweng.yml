@@ -5,11 +5,11 @@ name: Sweng Analysis
 
 on:
   push:
-    branches: [ "main", api-queries ]
+    branches: "main"
     tags:
       - "v*.*.*"
   pull_request:
-    branches: [ "main", api-queries ]
+    branches: "main"
 
 jobs:
 

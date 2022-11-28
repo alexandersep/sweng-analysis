@@ -1,3 +1,6 @@
+<script setup>
+import Chart from 'chart.js/auto';
+</script>
 <template>
     <div class="hello">
       <canvas id="myChart" width="400" height="100"></canvas>
@@ -6,18 +9,26 @@
   </template>
 
   <script>
-import { Chart } from 'chart.js';
-
+import axios from 'axios'
 export default{
 mounted(){
-  console.log("component mounted")
-  const ctx = document.getElementById('myChart')
- const labels = Utils.months({count: 7});
-  const data = {
-  labels: labels,
+    // var data = null;
+    var path = "http://localhost:9090/metrics";
+    axios.get(path)
+      .then((res) => {
+        var commits = res.data.commits_map;
+        console.log(commits)
+        const ctx = document.getElementById('myChart')
+
+        var myChart = new Chart(ctx, {
+         
+ //const labels = Utils.months({count: 7});
+ type: 'bar',
+   data: {
+  labels: Object.keys(commits),
   datasets: [{
-    label: 'sampleBar',
-    data: [65, 59, 80, 81, 56, 55, 40],
+    label: 'commits per user in repo',
+    data: Object.values(commits),
     backgroundColor: [
       'rgba(255, 99, 132, 0.2)',
       'rgba(255, 159, 64, 0.2)',
@@ -38,19 +49,17 @@ mounted(){
     ],
     borderWidth: 1
   }]
-};
-const myChart=new Chart(ctx,{
-  type: 'bar',
-  data: data,
-  options: {
+},
+options: {
     scales: {
       y: {
         beginAtZero: true
       }
     }
   },
-})
-myChart;
-    }
+        })
+        myChart;
+    })
+}
 }
 </script>

@@ -1,9 +1,9 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import barChart from './components/barChart.vue';
-import radarChart from './components/radarChart.vue';
 import pieChart from './components/pieChart.vue';
 import TheWelcome from './components/TheWelcome.vue'
+import LineChart from './components/LineChart.vue'
 </script>
 
 <script>
@@ -12,6 +12,8 @@ export default {
   data() {
     return {
       isVisible: false, 
+      isVisible2: false,
+      isVisible3: false,
       owner: '',
       repo: '',
       languages: [],
@@ -48,11 +50,18 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Software Engineering Analaysis" />
     </div>
-    <button class="button" style="left: -50px " @click="isVisible = !isVisible">Language Used {{ isVisible }}</button>
-    <div v-if="isVisible" ><pieChart/></div>
-    <button class="button" style="left: 100 " @click="isVisible2 = !isVisible2">radar chart {{ isVisible2 }}</button>
-    <div v-if="isVisible2" ><radarChart/></div>
+    <button class="button" style="left: -50px " @click="isVisible = !isVisible">Top Users {{ isVisible }}</button>
+    <div v-if="isVisible" ><barChart/></div>
+    <button class="button" style="left: 10x " @click="isVisible2 = !isVisible2">Languages {{ isVisible2 }}</button>
+    <div v-if="isVisible2" ><pieChart /></div>
 
+    <button class="button" style="left: 70x " @click="isVisible3 = !isVisible3">
+      Weekly Commits {{ isVisible3 }}
+    </button>
+    <div v-if="isVisible3" >
+      <LineChart />
+    </div>
+    
 
   </header>
   <main>
