@@ -15,7 +15,7 @@
 
 <style scoped>
 .graphitem {
-  margin-top: 0px;
+  margin-top: 25px;
   margin-bottom: 100px;
   display: block;
 }
@@ -26,7 +26,7 @@ h3 {
   font-size: 1.3rem;
   font-weight: 500;
   margin-bottom: 0.4rem;
-  color: var(--color-blue);
+  color: var(--color-pink);
 }
 h1 {
   font-size: 0.9rem;

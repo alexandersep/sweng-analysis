@@ -39,3 +39,20 @@
     </GraphItem>
 </template>
 
+<style scoped>
+    .button {	
+        background-color: var(--color-background-mute);	
+        border-width: 2px;	
+        border-color: var(--color-blue);	
+        border-radius: 15px;	
+        color: var(--color-blue); 	
+        font-size: 20px;	
+        font-weight: bold;	
+        text-align: center;	
+        text-decoration: none;	
+        display: inline-block;	
+        cursor: pointer;	
+        width: 150px;	
+        height: 75px;	
+    }
+</style>
