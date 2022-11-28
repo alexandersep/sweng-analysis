@@ -5,8 +5,7 @@ import Chart from 'chart.js/auto';
     <div class="hello">
       <canvas 
         id="barChart" 
-        width="400" 
-        height="400" />
+      />
     </div>
   
   </template>

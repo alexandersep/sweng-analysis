@@ -67,7 +67,7 @@ header {
   padding-right: calc(var(--section-gap) / 2);
 }
 .logo {
-    margin: 0 0 50px 0;
+    margin: 15% 0 50px 0;
   }
   header .wrapper {
     margin: 0 0 -75px 0;
@@ -78,6 +78,9 @@ header {
 @media (max-width: 1023px) {
   .main{
     top: 100px;
+  }
+  .logo {
+    margin: 0 0 50px 0;
   }
 }
 </style>
