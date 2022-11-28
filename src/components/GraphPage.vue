@@ -49,6 +49,8 @@
         Weekly Commits
     </button>
 
+    <div></div>
+
     <button 
         v-if="whichGraph == 2"
         @click="lineVPolar = true"
@@ -71,6 +73,8 @@
     > 
         Polar Chart
     </button>
+
+    <div></div>
 
     <GraphItem v-if="whichGraph == 0">
         <template #heading>Languages Used</template>
@@ -117,8 +121,7 @@
 
     .buttonS
     {	
-        margin-top: 15px;
-        margin-right: 50px;
+        margin: 15px 50px 0 15%;
         background-color: var(--color-background-mute);	
         border-width: 2px;	
         border-radius: 15px;	
