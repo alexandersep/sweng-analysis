@@ -69,3 +69,9 @@
     }
   }
 </script>
+
+<style>
+  #polarAreaChart {
+    max-height: 500px;
+  }
+</style>
