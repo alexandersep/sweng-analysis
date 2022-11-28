@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 </script>
 <template>
   <div class="hello">
-    <canvas id="myChart" width="400" height="100"></canvas>
+    <canvas id="myChart"></canvas>
   </div>
 
 </template>
