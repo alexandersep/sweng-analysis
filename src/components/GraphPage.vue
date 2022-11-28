@@ -11,6 +11,7 @@
     data() {
         return {
         whichGraph: 0,
+        lineVPolar: true,
         }
     }
     }
@@ -49,11 +50,23 @@
     </button>
 
     <button 
-        @click="whichGraph = 3"
-        class="button"  
+        v-if="whichGraph == 2"
+        @click="lineVPolar = true"
+        class="buttonS"  
         :style="{
-        color: whichGraph == 3 ? 'var(--color-red)' : 'var(--color-blue)',
-        borderColor: whichGraph == 3 ? 'var(--color-red)' : 'var(--color-blue)',
+        color: lineVPolar == 3 ? 'var(--color-pink)' : 'var(--color-green)',
+        borderColor: lineVPolar == 3 ? 'var(--color-pink)' : 'var(--color-green)',
+      }"
+    > 
+        Line Chart
+    </button>
+    <button 
+        v-if="whichGraph == 2"
+        @click="lineVPolar = false"
+        class="buttonS"  
+        :style="{
+        color: lineVPolar ? 'var(--color-green)' : 'var(--color-pink)',
+        borderColor: lineVPolar == 3 ? 'var(--color-green)' : 'var(--color-pink)',
       }"
     > 
         Polar Chart
@@ -71,15 +84,15 @@
         <template #graph><barChart/></template>
     </GraphItem>
 
-    <GraphItem v-if="whichGraph == 2">
+    <GraphItem v-if="(whichGraph == 2) && lineVPolar">
         <template #heading>Weekly Commits</template>
         <template #description>A line chart describing the timeframe of weekly commits in a repo. </template>
         <template #graph><LineChart/></template>
     </GraphItem>
 
-    <GraphItem v-if="whichGraph == 3">
-        <template #heading>Polar Area Chart</template>
-        <template #description>A polar area chart describing the timeframe of weekly commits in a repo.  </template>
+    <GraphItem v-if="(whichGraph == 2) && !lineVPolar">
+        <template #heading>Weekly Commits</template>
+        <template #description>A polar area chart describing the timeframe of weekly commits in a repo. </template>
         <template #graph><PolarAreaChart/></template>
     </GraphItem>
 </template>
@@ -102,8 +115,31 @@
         height: 75px;	
     }
 
+    .buttonS
+    {	
+        margin-top: 15px;
+        margin-right: 50px;
+        background-color: var(--color-background-mute);	
+        border-width: 2px;	
+        border-radius: 15px;	
+        color: var(--color-green); 	
+        font-size: 15px;	
+        font-weight: bold;	
+        text-align: center;	
+        text-decoration: none;	
+        display: inline-block;	
+        cursor: pointer;	
+        width: 100px;	
+        height: 50px;	
+    }
+
     @media (max-width: 1024px) {	
         .button
+        {
+            margin-top: 30px;
+        }
+
+        .buttonS
         {
             margin-top: 30px;
         }
