@@ -2,7 +2,7 @@
   <div>
     <canvas 
       id = "lineWeekChart"
-      width = "400"
+      width = "400" 
       height = "400" />
   </div>
 </template>
@@ -16,17 +16,26 @@
       var metrics = "http://localhost:9090/metrics"
       axios.get(metrics)
       .then((res) => {
-        var weeklyCommits = res.data.current_week_activity;
+        const daysInAWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const avgWeekCommits = res.data.average_commits_this_year;
+        const trendLineForYear = [avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits];
+        const weeklyCommits = res.data.current_week_activity;
         const ctx = document.getElementById('lineWeekChart')
         const lineChart = new Chart (ctx, {
           type: 'line',
           data: {
-            labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            labels: daysInAWeek,
             datasets: [ {
-              label: "Commits for the past Week",
+              label: "Commits from the Past Week",
               data: weeklyCommits,
-              backgroundColor: ['red', 'blue'],
+              backgroundColor: 'blue',
               borderColor: 'white',
+              borderWidth: 1
+            }, {
+              label: "Average Weekly Commits",
+              data: trendLineForYear,
+              backgroundColor: 'red',
+              borderColor: 'gray',
               borderWidth: 1
             }]
           },
