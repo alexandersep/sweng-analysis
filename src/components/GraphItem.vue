@@ -31,9 +31,9 @@ h3 {
 h1 {
   font-size: 0.9rem;
   font-weight: 300;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   color: var(--color-heading);
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 </style>
