@@ -40,7 +40,9 @@
 </template>
 
 <style scoped>
-    .button {	
+    .button 
+    {	
+        margin-right: 50px;
         background-color: var(--color-background-mute);	
         border-width: 2px;	
         border-color: var(--color-blue);	
@@ -54,5 +56,12 @@
         cursor: pointer;	
         width: 150px;	
         height: 75px;	
+    }
+
+    @media (max-width: 1024px) {	
+        .button
+        {
+            margin-top: 30px;
+        }
     }
 </style>
