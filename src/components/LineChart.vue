@@ -2,8 +2,7 @@
   <div>
     <canvas 
       id = "lineWeekChart"
-      width = "400"
-      height = "400" />
+    />
   </div>
 </template>
 
