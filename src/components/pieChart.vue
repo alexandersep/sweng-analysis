@@ -70,4 +70,8 @@ li {
 a {
   color: #42b983;
 }
+
+#myChart {
+    max-height: 30%px;
+  }
 </style>
