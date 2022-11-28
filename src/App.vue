@@ -48,7 +48,6 @@ export default {
     </div>
     <button class="button"  v-if="onGraphs == false" @click="onGraphs = !onGraphs"> Go To Graphs</button>
     <button class="button"  v-if="onGraphs == true" @click="onGraphs = !onGraphs"> Go To Home</button>
-
   </header>
 
   <main v-if="onGraphs == false" class="main">
