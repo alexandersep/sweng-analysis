@@ -16,9 +16,9 @@
 </script>
 
 <template>
-    <button class="button"  @click="whichGraph = 0"> Weekly Commits</button>
-    <button class="button"  @click="whichGraph = 1"> Languages Used</button>
-    <button class="button"  @click="whichGraph = 2"> Top Users</button>
+    <button class="button"  @click="whichGraph = 0"> Languages Used</button>
+    <button class="button"  @click="whichGraph = 1"> Top Users</button>
+    <button class="button"  @click="whichGraph = 2"> Weekly Commits</button>
 
     <GraphItem v-if="whichGraph == 0">
         <template #heading>Languages Used</template>
