@@ -73,13 +73,13 @@
 
     <GraphItem v-if="whichGraph == 2">
         <template #heading>Weekly Commits</template>
-        <template #description>A line chart describing the timeframe of weekly commits. </template>
+        <template #description>A line chart describing the timeframe of weekly commits in a repo. </template>
         <template #graph><LineChart/></template>
     </GraphItem>
 
-    <GraphItem v-if="whichGraph == 4">
+    <GraphItem v-if="whichGraph == 3">
         <template #heading>Polar Area Chart</template>
-        <template #description>???? </template>
+        <template #description>A polar area chart describing the timeframe of weekly commits in a repo.  </template>
         <template #graph><PolarAreaChart/></template>
     </GraphItem>
 </template>
