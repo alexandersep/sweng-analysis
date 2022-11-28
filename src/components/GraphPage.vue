@@ -16,9 +16,36 @@
 </script>
 
 <template>
-    <button class="button"  @click="whichGraph = 0"> Languages Used</button>
-    <button class="button"  @click="whichGraph = 1"> Top Users</button>
-    <button class="button"  @click="whichGraph = 2"> Weekly Commits</button>
+    <button 
+        @click="whichGraph = 0"
+        class="button"  
+        :style="{
+        color: whichGraph == 0 ? 'var(--color-red)' : 'var(--color-blue)',
+        borderColor: whichGraph == 0 ? 'var(--color-red)' : 'var(--color-blue)',
+      }"
+    > 
+        Languages Used
+    </button>
+    <button 
+        @click="whichGraph = 1"
+        class="button"  
+        :style="{
+        color: whichGraph == 1 ? 'var(--color-red)' : 'var(--color-blue)',
+        borderColor: whichGraph == 1 ? 'var(--color-red)' : 'var(--color-blue)',
+      }"
+    > 
+        Top Users
+    </button>
+    <button 
+        @click="whichGraph = 2"
+        class="button"  
+        :style="{
+        color: whichGraph == 2 ? 'var(--color-red)' : 'var(--color-blue)',
+        borderColor: whichGraph == 2 ? 'var(--color-red)' : 'var(--color-blue)',
+      }"
+    > 
+        Weekly Commits
+    </button>
 
     <GraphItem v-if="whichGraph == 0">
         <template #heading>Languages Used</template>
@@ -45,7 +72,6 @@
         margin-right: 50px;
         background-color: var(--color-background-mute);	
         border-width: 2px;	
-        border-color: var(--color-blue);	
         border-radius: 15px;	
         color: var(--color-blue); 	
         font-size: 20px;	
