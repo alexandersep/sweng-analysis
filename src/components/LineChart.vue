@@ -21,9 +21,9 @@
         const lineChart = new Chart (ctx, {
           type: 'line',
           data: {
-            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7"],
+            labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
             datasets: [ {
-              label: "Weekly Commits for the Past 7 Weeks",
+              label: "Commits for the past Week",
               data: weeklyCommits,
               backgroundColor: ['red', 'blue'],
               borderColor: 'white',
