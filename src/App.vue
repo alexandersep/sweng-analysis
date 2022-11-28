@@ -1,9 +1,6 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-import barChart from './components/barChart.vue';
-import pieChart from './components/pieChart.vue';
 import TheWelcome from './components/TheWelcome.vue'
-import LineChart from './components/LineChart.vue'
 import GraphPage from './components/GraphPage.vue'
 </script>
 

@@ -1,5 +1,7 @@
 <script setup>
     import pieChart from './pieChart.vue'
+    import barChart from './barChart.vue';
+    import LineChart from './LineChart.vue'
     import GraphItem from './GraphItem.vue'
 </script>
 
