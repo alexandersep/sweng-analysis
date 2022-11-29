@@ -19,7 +19,13 @@ export default {
         var languages = res.data.languages;
         console.log(languages)
         const ctx = document.getElementById('myChart')
-
+        const total = Object.values(languages).reduce((sum, a) => sum + a, 0);
+        console.log(total);
+        const percentages = [];
+        for (let index = 0; index < Object.values(languages).length; index++) {
+          percentages[index] = Object.values(languages)[index] / total * 100;
+        }
+        
         var myChart = new Chart(ctx, {
           type: 'doughnut',
           data: {
@@ -41,7 +47,7 @@ export default {
                 'rgb(238, 236, 228)',
               ],
               hoverOffset: 4,
-              data: Object.values(languages)
+              data: percentages
             }]
           }
         });
