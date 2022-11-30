@@ -4,6 +4,7 @@
     import LineChart from './LineChart.vue'
     import GraphItem from './GraphItem.vue'
     import PolarAreaChart from './PolarAreaChart.vue'
+    import doughnutChart from './doughnutChart.vue'
 </script>
 
 <script>
@@ -79,7 +80,7 @@
     <GraphItem v-if="whichGraph == 0">
         <template #heading>Languages Used</template>
         <template #description>A pie chart describing the percentage of languages used in a repo.</template>
-        <template #graph><pieChart/></template>
+        <template #graph><doughnutChart/></template>
     </GraphItem>
 
     <GraphItem v-if="whichGraph == 1">

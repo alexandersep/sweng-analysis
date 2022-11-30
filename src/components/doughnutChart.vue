@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 </script>
 <template>
   <div class="hello">
-    <canvas id="myChart"></canvas>
+    <canvas id="doughnutChart" ></canvas>
   </div>
 
 </template>
@@ -18,7 +18,7 @@ export default {
       .then((res) => {
         var languages = res.data.languages;
         console.log(languages)
-        const ctx = document.getElementById('myChart')
+        const ctx = document.getElementById('doughnutChart')
         const total = Object.values(languages).reduce((sum, a) => sum + a, 0);
         console.log(total);
         const percentages = [];
@@ -27,7 +27,7 @@ export default {
         }
         
         var myChart = new Chart(ctx, {
-          type: 'pie',
+          type: 'doughnut',
           data: {
             labels: Object.keys(languages),
             datasets: [{
