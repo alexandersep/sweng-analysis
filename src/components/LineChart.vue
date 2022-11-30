@@ -17,8 +17,8 @@
       axios.get(metrics)
       .then((res) => {
         const daysInAWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const avgWeekCommits = res.data.average_commits_this_year;
-        const trendLineForYear = [avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits, avgWeekCommits];
+        const avgDailyCommits = res.data.average_commits_this_year / 7;
+        const trendLineForYear = [avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits];
         const weeklyCommits = res.data.current_week_activity;
         const ctx = document.getElementById('lineWeekChart')
         const lineChart = new Chart (ctx, {
@@ -32,7 +32,7 @@
               borderColor: 'white',
               borderWidth: 1
             }, {
-              label: "Average Weekly Commits",
+              label: "Average Daily Commits",
               data: trendLineForYear,
               backgroundColor: 'red',
               borderColor: 'gray',
