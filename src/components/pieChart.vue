@@ -27,8 +27,8 @@ export default {
         }
         const repo = res.data.repo;
         const owner = res.data.owner;
-        const uptimeInWeeks = Math.floor(res.data.issue_time);
-        const uptimeInRemainingDays = Math.floor((res.data.issue_time - uptimeInWeeks) * 7)
+        const issueCompletionTime = Math.floor(res.data.issue_time);
+
         
         var myChart = new Chart(ctx, {
           type: 'pie',
@@ -59,7 +59,7 @@ export default {
               title: {
                 display: true,
                 text: [("Repository: " + repo + ", Owner: " + owner),  
-                  (repo + " has been active for " + uptimeInWeeks + " weeks and " + uptimeInRemainingDays + " days")]  // New line.
+                ("Average days between issue completion: " + issueCompletionTime)]  // New line.
               }
             }
           }
