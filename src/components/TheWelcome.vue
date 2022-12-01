@@ -18,7 +18,7 @@ import CodeIcon from './icons/IconCode.vue'
 
     The project's 
     <a href="https://github.com/alexandersep/sweng-analysis" target="_blank" rel="noopener">official documentation</a>
-    is found on our github, please reference the README on how to get started and the we provide.
+    is found on our github, please reference the README on how to get started. 
   </WelcomeItem>
 
   <WelcomeItem>

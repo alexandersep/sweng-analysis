@@ -8,7 +8,17 @@
 * This project was written using **GO** and **Vue**.
 * API calls were done using **go-github**.
 
+## Compatability
+
+* Windows
+    - Requires WSL
+* Mac
+    - Requires Windows Bootcamp and WSL
+* Linux
+    - Native Compatability
+
 ## Instructions for Setup
+
 * Running App from Dockerhub
     1. Pull docker image of web app.
         * Option 1: Pull web app version using `docker pull asepelenco/sweng_analysis:v1.0.0`.
@@ -33,11 +43,16 @@
 
 ### Contributors
 
-Adam Beaty, *TODO*  
-Adriana Hrabowych, *TODO*  
-Brandon Paisley, *TODO*  
-Gerald Paris, *TODO*     
+Adam Beaty, Beattyad@tcd.ie 
+Adriana Hrabowych, hrabowya@tcd.ie 
+Brandon Paisley, paisleyb@tcd.ie 
+Gerald Paris, gparis@tcd.ie 
 Daniel Penrose, penrosed@tcd.ie
 Niall Sauvage, sauvagen@tcd.ie    
 Alexander Sepelenco, sepelena@tcd.ie    
 Wesley Shaw, Weshaw@tcd.ie
+
+## Sources
+
+[https://github.com/carbon-language/carbon-lang](Carbon github)
+[https://hub.docker.com/](DockerHub) 
