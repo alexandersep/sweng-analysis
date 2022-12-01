@@ -42,16 +42,16 @@
 
 ### Contributors
 
-Adam Beaty, Beattyad@tcd.ie 
-Adriana Hrabowych, hrabowya@tcd.ie 
-Brandon Paisley, paisleyb@tcd.ie 
-Gerald Paris, gparis@tcd.ie 
-Daniel Penrose, penrosed@tcd.ie
+Adam Beaty, Beattyad@tcd.ie  
+Adriana Hrabowych, hrabowya@tcd.ie   
+Brandon Paisley, paisleyb@tcd.ie   
+Gerald Paris, gparis@tcd.ie  
+Daniel Penrose, penrosed@tcd.ie  
 Niall Sauvage, sauvagen@tcd.ie    
-Alexander Sepelenco, sepelena@tcd.ie    
+Alexander Sepelenco, sepelena@tcd.ie     
 Wesley Shaw, Weshaw@tcd.ie
 
 ## Sources
 
-https://github.com/carbon-language/carbon-lang
+https://github.com/carbon-language/carbon-lang  
 https://hub.docker.com/
