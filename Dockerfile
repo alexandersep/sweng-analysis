@@ -22,7 +22,7 @@ RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt install -y yarn
 
-# Install and Setup Golang 
+# Install and Setup Golang (Rum goland in docker image when booted it)
 RUN curl -OL https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
 RUN tar -C /usr/local -xvf go1.19.3.linux-amd64.tar.gz
 RUN rm go1.19.3.linux-amd64.tar.gz
@@ -31,9 +31,6 @@ RUN rm go1.19.3.linux-amd64.tar.gz
 RUN npm -f install
 RUN npm run build
 RUN npm run dev &  
-
-# Run Golang 
-RUN /usr/local/go/bin/go run src/main.go # Build Go code 
 
 # Ports needed to be exposed
 # Vue Port
