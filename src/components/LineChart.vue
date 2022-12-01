@@ -25,6 +25,9 @@
 
         const repo = res.data.repo;
         const owner = res.data.owner;
+        const uptimeInWeeks = Math.floor(res.data.issue_time);
+        const uptimeInRemainingDays = Math.floor((res.data.issue_time - uptimeInWeeks) * 7)
+         
 
         // Calculations for running average.
         //var weeklyCommits = res.data.current_week_activity;
@@ -65,7 +68,8 @@
             plugins: {
               title: {
                 display: true,
-                text: 'Repository: ' + repo + ', Owner: ' + owner
+                text: [("Repository: " + repo + ", Owner: " + owner),  
+                  (repo + " has been active for " + uptimeInWeeks + " weeks and " + uptimeInRemainingDays + " days")]  // New line.
               }
             }
           }

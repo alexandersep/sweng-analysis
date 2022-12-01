@@ -23,6 +23,8 @@ mounted(){
         const ctx = document.getElementById('barChart')
         const repo = res.data.repo;
         const owner = res.data.owner;
+        const uptimeInWeeks = Math.floor(res.data.issue_time);
+        const uptimeInRemainingDays = Math.floor((res.data.issue_time - uptimeInWeeks) * 7)
 
         var myChart = new Chart(ctx, {
          
@@ -61,11 +63,12 @@ options: {
       }
     },
     plugins: {
-      title: {
-        display: true,
-        text: 'Repository: ' + repo + ', Owner: ' + owner
-      }
-    }
+              title: {
+                display: true,
+                text: [("Repository: " + repo + ", Owner: " + owner),  
+                  (repo + " has been active for " + uptimeInWeeks + " weeks and " + uptimeInRemainingDays + " days")]  // New line.
+              }
+            }
   },
         })
         myChart;
