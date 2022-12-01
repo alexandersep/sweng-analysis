@@ -21,7 +21,7 @@
 
 * Running App from Dockerhub
     1. Pull docker image of web app.
-        * Option 1: Pull web app version using `docker pull asepelenco/sweng_analysis:v1.0.0`.
+        * Option 1: Pull web app version using `docker pull asepelenco/sweng_analysis:v2.0.0`.
     2. Run the docker image using `docker run --expose 9090 -p 9090:9090 --expose 5173 -p 5173:5713 -ti --rm -ti --network=host asepelenco/sweng_analysis:v1.0.0`.
         * `--expose 5173`, `--expose 9090` and `-p 5173:5173`, `-p 9090:9090` ensures the port `5173` as well as using `--network=host`is exposed and allows you to access the web
           with the docker image.
