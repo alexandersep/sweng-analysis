@@ -28,17 +28,18 @@
     3. Run the command `npm -f install` then in the background run `npm run dev &` and clear the screen by typing pressing `Ctrl+l` or typing `clear`.
     4. Run the go code with `go run src/main.go`
     5. Input your github access token, this is necessary in order to not be limited to 60 api calls per hour.
-    6. Open up your web browser and type `localhost:5173` to launch the frontend and in a different tab type in `localhost:9090` to launch the backend..
+    6. Run the command `echo 127.0.0.1 localhost | tee -a /etc/hosts"` (necessary in Trinity campus)
+    7. Open up your web browser and type `localhost:5173` to launch the frontend and in a different tab type in `localhost:9090` to launch the backend..
 * Running App using Docker (not from Dockerhub) (This can only be the web app version)
     1. Execute command `docker build -t sweng-analysis .` in root directory of the project (sweng-analysis).
     2. Execute command `docker run --expose 9090 -p 9090:9090 --expose 5173 -p 5173:5173 -ti --network=host --rm sweng-analysis`.
-    3. Repeat steps 3 to 6 for Running App from Dockerhub.
+    3. Repeat steps 3 to 7 for Running App from Dockerhub.
 * Running App locally
     1. Clone repository with `git clone https://github.com/alexandersep/sweng-analysis.git`.
     2. Enter sweng-analysis/ with `cd sweng-analysis`.
     3. Ensure that you have nodejs 16, nodejs dev, Go version 1.19.3 or above installed.
     4. Install and launch frontend with `npm -f install`, then `npm run dev &`.
-    6. Repeat steps 4 and 6 for Running App from DockerHub.
+    6. Repeat steps 4 and 7 for Running App from DockerHub.
 
 ### Contributors
 
