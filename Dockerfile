@@ -28,12 +28,12 @@ RUN tar -C /usr/local -xvf go1.19.3.linux-amd64.tar.gz
 RUN rm go1.19.3.linux-amd64.tar.gz
 
 # Install and Setup Vue for sweng_analysis
-RUN npm install
+RUN npm -f install
 RUN npm run build
 RUN npm run dev &  
 
 # Run Golang 
-RUN /usr/local/go/bin/go run src/main.go # Build Go code 
+RUN /usr/local/go/bin/go run main.go # Build Go code 
 
 # Ports needed to be exposed
 # Vue Port
