@@ -32,6 +32,9 @@ RUN npm -f install
 RUN npm run build
 RUN npm run dev &  
 
+# Set localhost to 127.0.0.1 
+RUN echo "127.0.0.1 localhost" >> /etc/hosts/
+
 # Ports needed to be exposed
 # Vue Port
 EXPOSE 5173 
