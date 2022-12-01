@@ -25,6 +25,8 @@ export default {
         for (let index = 0; index < Object.values(languages).length; index++) {
           percentages[index] = Object.values(languages)[index] / total * 100;
         }
+        const repo = res.data.repo;
+        const owner = res.data.owner;
         
         var myChart = new Chart(ctx, {
           type: 'doughnut',
@@ -49,6 +51,14 @@ export default {
               hoverOffset: 4,
               data: percentages
             }]
+          },
+          options: {
+            plugins: {
+              title: {
+                display: true,
+                text: 'Repository: ' + repo + ', Owner: ' + owner
+              }
+            }
           }
         });
         myChart;

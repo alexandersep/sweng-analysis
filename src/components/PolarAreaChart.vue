@@ -22,6 +22,10 @@
         const avgDailyCommits = res.data.average_commits_this_year / 7;
         const trendLineForYear = [avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits];
         const weeklyCommits = res.data.current_week_activity;
+
+        const repo = res.data.repo;
+        const owner = res.data.owner;
+
         // Calculations for running daily average commits.
         //var weeklyCommits = res.data.current_week_activity;
         //var avgDailyCommits = []
@@ -68,10 +72,12 @@
           },
           options: {
             responsive: true,
-            scales: {
-              display: false
-              
-            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Repository: ' + repo + ', Owner: ' + owner
+              }
+            }
           }
         })
       })

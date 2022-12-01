@@ -21,6 +21,8 @@ mounted(){
         var commits = res.data.commits_map;
         console.log(commits)
         const ctx = document.getElementById('barChart')
+        const repo = res.data.repo;
+        const owner = res.data.owner;
 
         var myChart = new Chart(ctx, {
          
@@ -56,6 +58,12 @@ options: {
     scales: {
       y: {
         beginAtZero: true
+      }
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: 'Repository: ' + repo + ', Owner: ' + owner
       }
     }
   },

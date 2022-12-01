@@ -80,7 +80,7 @@
     <GraphItem v-if="whichGraph == 0">
         <template #heading>Languages Used</template>
         <template #description>A pie chart describing the percentage of languages used in a repo.</template>
-        <template #graph><doughnutChart/></template>
+        <template #graph><pieChart/></template>
     </GraphItem>
 
     <GraphItem v-if="whichGraph == 1">
