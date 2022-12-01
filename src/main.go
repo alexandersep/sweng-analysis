@@ -210,8 +210,8 @@ func mean_issue_time(issues []*github.Issue) (float64, error) {
 }
 
 func main() {
-	owner := "carbon-language"
-	input_repo := "carbon-lang"
+	owner := "alexandersep"
+	input_repo := "sweng-analysis"
 
 	args := os.Args[1:]
 
