@@ -24,7 +24,7 @@ jobs:
         go-version: 1.19
 
     - name: Test
-      run: go test -args ${{ secrets.GHAPI_ACCESS_TOKEN }}
+      run: go test ./src -args ${{ secrets.GHAPI_ACCESS_TOKEN }}
 
     - name: Set environment variable
       run: echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
