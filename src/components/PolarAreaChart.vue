@@ -17,9 +17,19 @@
       axios.get(metrics)
       .then((res) => {
         const daysInAWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        // Calculations for average running commits.
         const avgDailyCommits = res.data.average_commits_this_year / 7;
         const trendLineForYear = [avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits, avgDailyCommits];
         const weeklyCommits = res.data.current_week_activity;
+        // Calculations for running daily average commits.
+        //var weeklyCommits = res.data.current_week_activity;
+        //var avgDailyCommits = []
+        //var runningTotal = 0;
+        //for (let index = 0; index < Object.values(weeklyCommits).length; index++) {
+        //  runningTotal += Object.values(weeklyCommits)[index];
+        //  avgDailyCommits[index] = runningTotal / (index + 1);
+        //}
         const ctx = document.getElementById('polarAreaChart')
         const polarAreaChart = new Chart (ctx, {
           type: 'polarArea',
@@ -35,13 +45,14 @@
                 '#de3c4b',  // Rusty Red
                 '#c42847',  // French Raspberry
                 '#331832',  // Dark Purple
-                '#d81e5b'   // Ruby
+                'rgb(255, 0, 0, 200)'   // Ruby
               ],
               borderColor: 'blue',
               borderWidth: 1
             }, {
               label: "Average Daily Commits",
               data: trendLineForYear,
+
               backgroundColor: [
                 '#f6bd60',  // Maximum Yellow Red
                 '#f7ede2',  // Linen
@@ -49,7 +60,7 @@
                 '#84a59d',  // Morning Blue
                 '#f28482',  // Light Coral
                 '#246eb9',  // Spanish Blue
-                '#0d0630'   // Russian Violet
+                '#0d0630'   // Russian Violet  
               ],
               borderColor: 'red',
               borderWidth: 1
@@ -57,12 +68,10 @@
           },
           options: {
             responsive: true,
-            lineTension: 0, // Affects intensity of line curvature. Range of 0 - 1 for most ideal effects.
             scales: {
-              y: {
-                beginAtZero: true,
-              }
-            }
+              display: false
+              
+            },
           }
         })
       })
